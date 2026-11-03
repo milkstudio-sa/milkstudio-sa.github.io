@@ -9,6 +9,9 @@ window.SITE = {
   // Your WhatsApp number: country code + number, no "+", no spaces, no leading 0
   whatsapp: "966506368029",
 
+  // Google Sheet that saves form answers (Apps Script web app URL). Leave "" to turn off.
+  sheetUrl: "",
+
   instagram: "milkstudio.sa",
   tiktok: "milkstudio.sa",
 

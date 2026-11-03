@@ -62,6 +62,7 @@ html[dir="rtl"] .steps{font-family:var(--f-ar);text-transform:none;letter-spacin
 .panel{display:flex;flex-direction:column;gap:20px;min-width:0}
 h1{font-family:var(--f-display);font-weight:800;font-size:clamp(26px,5vw,34px);letter-spacing:-.025em;line-height:1.1;margin:0;text-wrap:balance}
 html[dir="rtl"] h1{font-family:var(--f-ar);letter-spacing:0}
+.privacy{margin:0;font-size:12.5px;color:var(--cocoa-soft)}
 .lede{margin:0;color:var(--cocoa-soft);max-width:52ch}
 
 .field{display:flex;flex-direction:column;gap:6px}
@@ -195,10 +196,12 @@ fieldset.win legend{font-size:19px}
 
   <div class="grid">
     <form class="panel" id="form" novalidate>
+      <input type="text" id="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
       <!-- STEP 1 -->
       <section class="panel show" data-step="1">
         <h1 data-i="h1">Who's ordering?</h1>
         <p class="lede" data-i="l1">We sell wholesale to registered cafés and stores. Your commercial registration lets us confirm the business before the first delivery.</p>
+        <p class="privacy" data-i="priv">We save what you enter here so we can follow up with you.</p>
         <div class="field">
           <label for="biz" data-i="bizL">Business name</label>
           <input id="biz" autocomplete="organization" placeholder="Bloom Coffee">
@@ -292,6 +295,7 @@ fieldset.win legend{font-size:19px}
 <div class="bar" aria-hidden="true"><span id="barL"></span><span><b id="barT">0</b> <span data-i="sar">SAR</span></span></div>
 
 <script src="../links.js"></script>
+<script src="../track.js?v=1"></script>
 <script>
 /* ======= EDIT THESE ======= */
 const CONFIG = {
@@ -310,7 +314,7 @@ const CONFIG = {
 /* ========================== */
 
 const T = {
- en:{tag:"frozen cookie dough",s1:"Business",s2:"Order",s3:"Send",h1:"Who's ordering?",
+ en:{priv:"We save what you enter here so we can follow up with you.",tag:"frozen cookie dough",s1:"Business",s2:"Order",s3:"Send",h1:"Who's ordering?",
   l1:"We sell wholesale to registered cafés and stores. Your commercial registration lets us confirm the business before the first delivery.",
   bizL:"Business name",crL:"Commercial registration (CR) number",crH:"10 digits, as on your CR certificate.",contactL:"Contact name",distL:"District",
   next:"Continue to order",h2:"Build your order",l2:"Each bag holds 24 pieces of frozen cookie dough (45 g each), vacuum sealed. Bake straight from the freezer at 180°C.",
@@ -325,7 +329,7 @@ const T = {
   eBag:"Add at least one bag.",eDate:"Pick dates from tomorrow on, with the end on or after the start.",eTime:"The end time needs to be after the start time.",copied:"Copied",copyFail:"Select the text above and copy it.",
   m:{hi:"New wholesale order — milkstudio",biz:"Business",cr:"CR",contact:"Contact",district:"District",date:"Best time for delivery",items:"Order",
      sub:"Subtotal",del:"Delivery",tot:"Total",notes:"Notes",ref:"Order no."}},
- ar:{tag:"عجينة كوكيز مجمّدة",s1:"المنشأة",s2:"الطلب",s3:"الإرسال",h1:"مين يطلب؟",
+ ar:{priv:"نحفظ اللي تكتبه هنا عشان نقدر نتابع معك.",tag:"عجينة كوكيز مجمّدة",s1:"المنشأة",s2:"الطلب",s3:"الإرسال",h1:"مين يطلب؟",
   l1:"نبيع بالجملة للمقاهي والمتاجر المسجّلة. رقم السجل التجاري يساعدنا نتأكد من المنشأة قبل أول توصيل.",
   bizL:"اسم المنشأة",crL:"رقم السجل التجاري",crH:"١٠ أرقام، كما في شهادة السجل.",contactL:"اسم المسؤول",distL:"الحي",
   next:"التالي: الطلب",h2:"جهّز طلبك",l2:"كل كيس فيه ٢٤ حبة عجينة كوكيز مجمّدة (٤٥ جم للحبة)، مفرّغ من الهواء. تنخبز من الفريزر مباشرة على ١٨٠°م.",
@@ -381,7 +385,7 @@ function renderBags(){
 $("bags").addEventListener("click",e=>{
   const b=e.target.closest("button[data-f]"); if(!b) return;
   qty[b.dataset.f]=Math.max(0,qty[b.dataset.f]+Number(b.dataset.d)); $("bagE").hidden=true;
-  renderBags(); update();
+  renderBags(); update(); tracker.soon();
 });
 
 function totals(){
@@ -443,7 +447,7 @@ function message(){
 }
 
 function go(n){
-  step=n;
+  step=n; tracker.step(n===1?"started":n===2?"order":"review");
   document.querySelectorAll("[data-step]").forEach(s=>s.classList.toggle("show",+s.dataset.step===n));
   [...$("steps").children].forEach((li,i)=>{li.classList.toggle("on",i+1===n);li.classList.toggle("done",i+1<n)});
   if(n===3){const txt=message();$("msg").textContent=txt;$("wa").href=`https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(txt)}`}
@@ -474,6 +478,12 @@ function setLang(l){
   renderBags(); update(); if(step===3) go(3);
   try{localStorage.setItem("ms-lang",l)}catch(e){}
 }
+const tracker = msTrack("wholesale", () => { const s = totals(); return {
+  lang, biz:$("biz").value.trim(), cr:$("cr").value.trim(), contact:$("contact").value.trim(),
+  location:$("district").value.trim(), window:windowText(),
+  items:CONFIG.flavours.filter(f=>qty[f.id]).map(f=>`${f.ar} ×${qty[f.id]}`).join("، "),
+  total:s.bags?s.total:"", ref, notes:$("notes").value.trim() }; });
+$("wa").addEventListener("click",()=>tracker.step("whatsapp"));
 $("l-ar").onclick=()=>setLang("ar"); $("l-en").onclick=()=>setLang("en");
 $("ref").textContent=ref; $("waNum").textContent="+"+CONFIG.whatsapp;
 let saved="ar"; try{saved=localStorage.getItem("ms-lang")||"ar"}catch(e){}

@@ -16,3 +16,7 @@ The QR code points to `https://milkstudio-sa.github.io/`. That address never cha
 - Light/dark mode: the cookie button at the top. Images are in `img/`.
 - `/sample/` is the free sample request for cafés
 - `/order/` is the wholesale order form (prices and flavours are in the `CONFIG` block near the bottom of `order/index.html`)
+
+## Saving form answers
+
+Both forms save answers to a Google Sheet as people type (one row per visit, with a status column). The sheet link goes in `sheetUrl` in `links.js`.

@@ -156,6 +156,7 @@ html[dir="rtl"] .msg{font-family:var(--f-ar);font-size:13.5px}
 <style>html,body{margin:0}:root{padding-top:env(safe-area-inset-top,0px)}</style>
 <style>
 /* sample page additions */
+.privacy{margin:0;font-size:12.5px;color:var(--cocoa-soft)}
 .side{display:flex;flex-direction:column;gap:16px;min-width:0;position:sticky;top:max(16px,env(safe-area-inset-top,0px));align-self:start}
 .side .slip{position:static}
 @media (max-width:820px){.side{position:static}}
@@ -219,10 +220,12 @@ fieldset.win legend{font-size:19px}
 
   <div class="grid">
     <form class="panel" id="form" novalidate>
+      <input type="text" id="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
       <!-- STEP 1 -->
       <section class="panel show" data-step="1">
         <h1 data-i="h1">Order a sample for your café</h1>
         <p class="lede" data-i="l1">Six pieces, on us, so you can bake them in your own oven before you order. One sample per café.</p>
+        <p class="privacy" data-i="priv">We save what you enter here so we can follow up with you.</p>
 
         <div class="field">
           <label for="biz" data-i="bizL">Café name</label>
@@ -307,6 +310,7 @@ fieldset.win legend{font-size:19px}
 </div>
 
 <script src="../links.js"></script>
+<script src="../track.js?v=1"></script>
 <script>
 const WA = (window.SITE && window.SITE.whatsapp) || "9665XXXXXXXX";
 const SAMPLE = [
@@ -315,7 +319,7 @@ const SAMPLE = [
 ];
 
 const T = {
- en:{tag:"frozen cookie dough",s1:"Café",s2:"Send",h1:"Order a sample for your café",
+ en:{priv:"We save what you enter here so we can follow up with you.",tag:"frozen cookie dough",s1:"Café",s2:"Send",h1:"Order a sample for your café",
   l1:"Six pieces, on us, so you can bake them in your own oven before you order. One sample per café.",
   bizL:"Café name",crL:"Commercial registration (CR) number",crH:"10 digits, so we can confirm the café is registered.",
   locL:"Location",locP:"Google Maps link, or the district",
@@ -328,7 +332,7 @@ const T = {
   eDate:"Pick dates from tomorrow on, with the end on or after the start.",eTime:"The end time needs to be after the start time.",
   copied:"Copied",copyFail:"Select the text above and copy it.",
   m:{hi:"Free sample request — milkstudio",biz:"Café",cr:"CR",loc:"Location",win:"Best time for delivery",box:"Sample"}},
- ar:{tag:"عجينة كوكيز مجمّدة",s1:"الكافيه",s2:"الإرسال",h1:"اطلب عيّنة لكافيهك",
+ ar:{priv:"نحفظ اللي تكتبه هنا عشان نقدر نتابع معك.",tag:"عجينة كوكيز مجمّدة",s1:"الكافيه",s2:"الإرسال",h1:"اطلب عيّنة لكافيهك",
   l1:"٦ حبات علينا، عشان تخبزونها في فرنكم قبل ما تطلبون. عيّنة وحدة لكل كافيه.",
   bizL:"اسم الكافيه",crL:"رقم السجل التجاري",crH:"١٠ أرقام، للتأكد إن الكافيه مسجّل.",
   locL:"الموقع",locP:"رابط قوقل ماب، أو اسم الحي",
@@ -392,7 +396,7 @@ function message(){
     `${m.box}: ${sampleText()}`].join("\n");
 }
 function go(n){
-  step=n;
+  step=n; tracker.step(n===1?"started":"review");
   document.querySelectorAll("[data-step]").forEach(s=>s.classList.toggle("show",+s.dataset.step===n));
   [...$("steps").children].forEach((li,i)=>{li.classList.toggle("on",i+1===n);li.classList.toggle("done",i+1<n)});
   if(n===2){const txt=message();$("msg").textContent=txt;$("wa").href=`https://wa.me/${WA}?text=${encodeURIComponent(txt)}`}
@@ -420,6 +424,11 @@ function setLang(l){
   update(); if(step===2) go(2);
   try{localStorage.setItem("ms-lang",l)}catch(e){}
 }
+const tracker = msTrack("sample", () => ({
+  lang, biz:$("biz").value.trim(), cr:$("cr").value.trim(), contact:"",
+  location:$("loc").value.trim(), window:windowText(),
+  items:SAMPLE.map(x=>`${x.ar} ×${x.n}`).join("، "), total:0, ref:"", notes:"" }));
+$("wa").addEventListener("click",()=>tracker.step("whatsapp"));
 $("l-ar").onclick=()=>setLang("ar"); $("l-en").onclick=()=>setLang("en");
 $("waNum").textContent="+"+WA;
 let saved="ar"; try{saved=localStorage.getItem("ms-lang")||"ar"}catch(e){}
