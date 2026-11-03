@@ -337,7 +337,7 @@ const T = {
   meterGo:n=>`${n} more ${n===1?"bag":"bags"} for free delivery`,meterOk:"Free delivery unlocked",
   foot:"Payment by bank transfer once we confirm your order.",
   eBiz:"Enter the business name.",eCr:"CR number should be exactly 10 digits.",eDist:"Enter the district for delivery.",
-  eBag:"Add at least one bag.",eDate:"Pick dates from tomorrow on, with the end on or after the start.",eTime:"The end time needs to be after the start time.",copied:"Copied",copyFail:"Select the text above and copy it.",
+  eBag:"Add at least one bag.",eNoStart:"Pick the first day that suits you for delivery.",eTooSoon:"The earliest delivery is tomorrow. Pick tomorrow or a later date.",eEndBefore:"The end date is before the start date. Pick the same day or a later one.",eNoTime:"Pick both a start time and an end time.",eTime:"The end time is before or the same as the start time. Pick a later end time.",copied:"Copied",copyFail:"Select the text above and copy it.",
   m:{hi:"New wholesale order — milkstudio",biz:"Business",cr:"CR",contact:"Contact",district:"District",date:"Best time for delivery",items:"Order",
      sub:"Subtotal",del:"Delivery",tot:"Total",notes:"Notes",ref:"Order no."}},
  ar:{tag:"عجينة كوكيز مجمّدة",s1:"المنشأة",s2:"الطلب",s3:"الإرسال",h1:"مين يطلب؟",
@@ -352,7 +352,7 @@ const T = {
   meterGo:n=>`باقي ${n} ${n===1?"كيس":"أكياس"} للتوصيل المجاني`,meterOk:"التوصيل مجاني",
   foot:"الدفع بتحويل بنكي بعد ما نأكد طلبك.",
   eBiz:"اكتب اسم المنشأة.",eCr:"رقم السجل لازم يكون ١٠ أرقام.",eDist:"اكتب الحي للتوصيل.",
-  eBag:"أضف كيس واحد على الأقل.",eDate:"اختر تواريخ من بكرة وطالع، وتاريخ النهاية نفس البداية أو بعدها.",eTime:"وقت النهاية لازم يكون بعد البداية.",copied:"تم النسخ",copyFail:"حدّد النص فوق وانسخه.",
+  eBag:"أضف كيس واحد على الأقل.",eNoStart:"اختر أول يوم يناسبك للتوصيل.",eTooSoon:"أقرب توصيل بكرة. اختر بكرة أو تاريخ بعده.",eEndBefore:"تاريخ النهاية قبل تاريخ البداية. اختر نفس اليوم أو بعده.",eNoTime:"اختر وقت البداية ووقت النهاية.",eTime:"وقت النهاية قبل وقت البداية أو نفسه. اختر وقت نهاية بعده.",copied:"تم النسخ",copyFail:"حدّد النص فوق وانسخه.",
   m:{hi:"طلب جملة جديد — milkstudio",biz:"المنشأة",cr:"السجل التجاري",contact:"المسؤول",district:"الحي",date:"الوقت المناسب للتوصيل",items:"الطلب",
      sub:"المجموع الفرعي",del:"التوصيل",tot:"الإجمالي",notes:"ملاحظات",ref:"رقم الطلب"}}
 };
@@ -438,10 +438,13 @@ function valid1(){
 function valid2(){
   const t=T[lang]; let ok=true;
   if(!totals().bags){$("bagE").textContent=t.eBag;$("bagE").hidden=false;ok=false}
-  const f=$("dFrom").value, to=$("dTo").value||f;
-  const dOk=!!f && f>=tomorrow && to>=f;
-  const tOk=!!$("tFrom").value && !!$("tTo").value && $("tTo").value>$("tFrom").value;
-  const e=$("dateE"); e.textContent=!dOk?t.eDate:(!tOk?t.eTime:""); e.hidden=dOk&&tOk; ok=ok&&dOk&&tOk;
+  const f=$("dFrom").value, to=$("dTo").value||f, tf=$("tFrom").value, tt=$("tTo").value;
+  const msg = !f ? t.eNoStart
+    : f<tomorrow ? t.eTooSoon
+    : to<f ? t.eEndBefore
+    : (!tf||!tt) ? t.eNoTime
+    : tt<=tf ? t.eTime : "";
+  const e=$("dateE"); e.textContent=msg; e.hidden=!msg; ok=ok&&!msg;
   return ok;
 }
 

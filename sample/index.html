@@ -335,7 +335,7 @@ const T = {
   slipT:"Your sample",boxT:"In the box",boxP:"Frozen cookies in a vacuum-sealed bag, with flaky salt to sprinkle.",total:"Total",freeT:"Free",
   foot:"Free delivery in Riyadh.",emptyBiz:"Your café name shows here",pcs:"pieces",
   eBiz:"Enter the café name.",eCr:"CR number should be exactly 10 digits.",eLoc:"Add a Google Maps link or the district.",
-  eDate:"Pick dates from tomorrow on, with the end on or after the start.",eTime:"The end time needs to be after the start time.",
+  eNoStart:"Pick the first day that suits you for delivery.",eTooSoon:"The earliest delivery is tomorrow. Pick tomorrow or a later date.",eEndBefore:"The end date is before the start date. Pick the same day or a later one.",eNoTime:"Pick both a start time and an end time.",eTime:"The end time is before or the same as the start time. Pick a later end time.",
   copied:"Copied",copyFail:"Select the text above and copy it.",
   m:{hi:"Free sample request — milkstudio",biz:"Café",cr:"CR",loc:"Location",win:"Best time for delivery",box:"Sample"}},
  ar:{tag:"عجينة كوكيز مجمّدة",s1:"الكافيه",s2:"الإرسال",h1:"اطلب عيّنة لكافيهك",
@@ -348,7 +348,7 @@ const T = {
   slipT:"عيّنتك",boxT:"داخل الكيس",boxP:"كوكيز مجمّد في كيس مفرّغ من الهواء، ومعه ملح رقائق للرش.",total:"المجموع",freeT:"مجاناً",
   foot:"التوصيل مجاني داخل الرياض.",emptyBiz:"اسم الكافيه يظهر هنا",pcs:"حبات",
   eBiz:"اكتب اسم الكافيه.",eCr:"رقم السجل لازم يكون ١٠ أرقام.",eLoc:"أضف رابط قوقل ماب أو اسم الحي.",
-  eDate:"اختر تواريخ من بكرة وطالع، وتاريخ النهاية نفس البداية أو بعدها.",eTime:"وقت النهاية لازم يكون بعد البداية.",
+  eNoStart:"اختر أول يوم يناسبك للتوصيل.",eTooSoon:"أقرب توصيل بكرة. اختر بكرة أو تاريخ بعده.",eEndBefore:"تاريخ النهاية قبل تاريخ البداية. اختر نفس اليوم أو بعده.",eNoTime:"اختر وقت البداية ووقت النهاية.",eTime:"وقت النهاية قبل وقت البداية أو نفسه. اختر وقت نهاية بعده.",
   copied:"تم النسخ",copyFail:"حدّد النص فوق وانسخه.",
   m:{hi:"طلب عيّنة مجانية — milkstudio",biz:"الكافيه",cr:"السجل التجاري",loc:"الموقع",win:"الوقت المناسب للتوصيل",box:"العيّنة"}}
 };
@@ -386,10 +386,13 @@ function valid(){
   const biz=$("biz").value.trim(); setErr("bizE",biz?"":t.eBiz); ok=ok&&!!biz;
   const crOk=/^\d{10}$/.test($("cr").value.trim()); setErr("crE",crOk?"":t.eCr); ok=ok&&crOk;
   const loc=$("loc").value.trim(); setErr("locE",loc?"":t.eLoc); ok=ok&&!!loc;
-  const f=$("dFrom").value, to=$("dTo").value||f;
-  const dOk=!!f&&f>=tomorrow&&to>=f;
-  const tOk=!!$("tFrom").value&&!!$("tTo").value&&$("tTo").value>$("tFrom").value;
-  const e=$("dateE"); e.textContent=!dOk?t.eDate:(!tOk?t.eTime:""); e.hidden=dOk&&tOk; ok=ok&&dOk&&tOk;
+  const f=$("dFrom").value, to=$("dTo").value||f, tf=$("tFrom").value, tt=$("tTo").value;
+  const msg = !f ? t.eNoStart
+    : f<tomorrow ? t.eTooSoon
+    : to<f ? t.eEndBefore
+    : (!tf||!tt) ? t.eNoTime
+    : tt<=tf ? t.eTime : "";
+  const e=$("dateE"); e.textContent=msg; e.hidden=!msg; ok=ok&&!msg;
   return ok;
 }
 function message(){
