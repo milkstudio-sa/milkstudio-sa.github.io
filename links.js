@@ -19,8 +19,7 @@ window.SITE = {
   links: [
     { ar: "اطلب بالجملة", en: "Wholesale order", href: "order/", main: true },
 
-    { ar: "اطلب عيّنة مجانية", en: "Request a free sample",
-      whatsapp: "طلب عيّنة مجانية\nاسم المنشأة:\nرقم السجل التجاري:\nالموقع:\nالفترة المناسبة للتوصيل:" },
+    { ar: "اطلب عيّنة مجانية", en: "Request a free sample", href: "sample/" },
 
     { ar: "تواصل على واتساب", en: "Chat on WhatsApp", whatsapp: "" },
 

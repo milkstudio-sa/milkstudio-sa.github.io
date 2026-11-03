@@ -13,4 +13,5 @@ The QR code points to `https://milkstudio-sa.github.io/`. That address never cha
 ## Pages
 
 - `/` is the link page and baking instructions
+- `/sample/` is the free sample request for cafés
 - `/order/` is the wholesale order form (prices and flavours are in the `CONFIG` block near the bottom of `order/index.html`)
