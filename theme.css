@@ -1,16 +1,19 @@
 /* cookie theme button + logo swap (shared) */
-.theme-btn{all:unset;box-sizing:border-box;cursor:pointer;width:46px;height:46px;position:relative;flex:none;-webkit-tap-highlight-color:transparent;border-radius:50%}
-.theme-btn img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 2px 3px rgba(20,12,8,.28));
+.theme-btn{all:unset;box-sizing:border-box;cursor:pointer;display:inline-flex;align-items:center;gap:8px;flex:none;height:46px;
+  padding:4px;padding-inline-end:14px;border:1.5px solid var(--cocoa);border-radius:999px;color:var(--cocoa);
+  font-family:"IBM Plex Sans Arabic","Archivo",system-ui,sans-serif;font-size:13px;font-weight:600;white-space:nowrap;-webkit-tap-highlight-color:transparent}
+.theme-btn .ck{position:relative;width:36px;height:36px;flex:none}
+.theme-btn .ck img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 1px 2px rgba(20,12,8,.28));
   transition:opacity .3s ease,transform .55s cubic-bezier(.34,1.45,.5,1)}
 .theme-btn .ck-d{opacity:0;transform:rotate(-140deg) scale(.5)}
 [data-theme="dark"] .theme-btn .ck-l{opacity:0;transform:rotate(140deg) scale(.5)}
 [data-theme="dark"] .theme-btn .ck-d{opacity:1;transform:none}
-.theme-btn:active{transform:scale(.92)}
+.theme-btn:active{transform:scale(.96)}
 .theme-btn:focus-visible{outline:2px solid var(--cocoa);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){.theme-btn .ck img{transition:none}}
 .logo-d{display:none!important}
 [data-theme="dark"] .logo-l{display:none!important}
 [data-theme="dark"] .logo-d{display:block!important}
-@media (prefers-reduced-motion:reduce){.theme-btn img{transition:none}}
 
 /* brand handwriting: Mikie's for English, Hadiya (Norah's own) for Arabic.
    One stack covers both: Latin + digits come from Mikie's, Arabic from Hadiya. */

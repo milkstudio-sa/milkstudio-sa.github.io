@@ -44,6 +44,7 @@ header{display:flex;align-items:center;justify-content:space-between;gap:16px;fl
 .brand .wm{font-family:var(--f-display);font-weight:800;font-size:22px;letter-spacing:-.02em;line-height:1}
 .brand .sub{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--cocoa-soft)}
 .tools{display:flex;align-items:center;gap:10px}
+@media (max-width:520px){header{flex-wrap:wrap!important}.tools{order:-1;width:100%;justify-content:flex-end}}
 .lang{display:flex;border:1px solid var(--cocoa);border-radius:999px;overflow:hidden}
 .lang button{all:unset;cursor:pointer;padding:6px 14px;font-size:13px;font-weight:600}
 .lang button[aria-pressed="true"]{background:var(--cocoa);color:var(--board)}
@@ -184,7 +185,7 @@ fieldset.win legend{font-size:19px}
       <div class="sub" data-i="tag">frozen cookie dough</div>
     </a>
     <div class="tools">
-    <button type="button" class="theme-btn" id="themeBtn" aria-label="Dark mode"><img class="ck-l" src="../img/cookie-classic.webp" alt="" width="46" height="46"><img class="ck-d" src="../img/cookie-double.webp" alt="" width="46" height="46"></button>
+    <button type="button" class="theme-btn" id="themeBtn" aria-label="Dark mode"><span class="ck"><img class="ck-l" src="../img/cookie-classic.webp" alt="" width="36" height="36"><img class="ck-d" src="../img/cookie-double.webp" alt="" width="36" height="36"></span><span class="theme-lbl" aria-hidden="true">الوضع الداكن</span></button>
     <div class="lang" role="group" aria-label="Language">
       <button type="button" id="l-ar" aria-pressed="false">عربي</button>
       <button type="button" id="l-en" aria-pressed="true">EN</button>

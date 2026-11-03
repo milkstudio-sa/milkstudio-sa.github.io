@@ -12,7 +12,8 @@
     if (b) {
       var ar = root.lang === "ar";
       b.setAttribute("aria-label", t === "dark" ? (ar ? "الوضع الفاتح" : "Light mode") : (ar ? "الوضع الداكن" : "Dark mode"));
-      b.setAttribute("title", b.getAttribute("aria-label"));
+      var lbl = b.querySelector(".theme-lbl");
+      if (lbl) lbl.textContent = t === "dark" ? (ar ? "الوضع الفاتح" : "Light mode") : (ar ? "الوضع الداكن" : "Dark mode");
       b.setAttribute("aria-pressed", t === "dark" ? "true" : "false");
     }
   }
