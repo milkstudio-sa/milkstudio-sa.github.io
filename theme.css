@@ -1,0 +1,13 @@
+/* cookie theme button + logo swap (shared) */
+.theme-btn{all:unset;box-sizing:border-box;cursor:pointer;width:46px;height:46px;position:relative;flex:none;-webkit-tap-highlight-color:transparent;border-radius:50%}
+.theme-btn img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 2px 3px rgba(20,12,8,.28));
+  transition:opacity .3s ease,transform .55s cubic-bezier(.34,1.45,.5,1)}
+.theme-btn .ck-d{opacity:0;transform:rotate(-140deg) scale(.5)}
+[data-theme="dark"] .theme-btn .ck-l{opacity:0;transform:rotate(140deg) scale(.5)}
+[data-theme="dark"] .theme-btn .ck-d{opacity:1;transform:none}
+.theme-btn:active{transform:scale(.92)}
+.theme-btn:focus-visible{outline:2px solid var(--cocoa);outline-offset:3px}
+.logo-d{display:none!important}
+[data-theme="dark"] .logo-l{display:none!important}
+[data-theme="dark"] .logo-d{display:block!important}
+@media (prefers-reduced-motion:reduce){.theme-btn img{transition:none}}

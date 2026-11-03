@@ -5,8 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#E9E7DA">
 <title>milkstudio · Free sample</title>
-<link rel="icon" href="../logo.png">
-<link rel="apple-touch-icon" href="../logo.png">
+<link rel="icon" href="../img/logo.png">
+<link rel="apple-touch-icon" href="../img/logo.png">
+<script src="../theme.js"></script>
+<link rel="stylesheet" href="../theme.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
 <style>
@@ -25,6 +27,9 @@
   --f-ar:"IBM Plex Sans Arabic","Archivo",system-ui,sans-serif;
   --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
 }
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--board:#1E1814;--paper:#29211C;--cocoa:#EDE6D6;--cocoa-soft:#B9A898;--blue:#3E4C52;--line:#3D332C;--ok:#8CC09C;--warn:#E39A7C;color-scheme:dark}}
+:root[data-theme="dark"]{--board:#1E1814;--paper:#29211C;--cocoa:#EDE6D6;--cocoa-soft:#B9A898;--blue:#3E4C52;--line:#3D332C;--ok:#8CC09C;--warn:#E39A7C;color-scheme:dark}
+
 
 *{box-sizing:border-box}
 body{background:var(--board);color:var(--cocoa);font-family:var(--f-body);font-size:15px;line-height:1.5;
@@ -38,6 +43,7 @@ header{display:flex;align-items:center;justify-content:space-between;gap:16px;fl
 .brand img{width:58px;height:auto;flex:none;display:block}
 .brand .wm{font-family:var(--f-display);font-weight:800;font-size:22px;letter-spacing:-.02em;line-height:1}
 .brand .sub{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--cocoa-soft)}
+.tools{display:flex;align-items:center;gap:10px}
 .lang{display:flex;border:1px solid var(--cocoa);border-radius:999px;overflow:hidden}
 .lang button{all:unset;cursor:pointer;padding:6px 14px;font-size:13px;font-weight:600}
 .lang button[aria-pressed="true"]{background:var(--cocoa);color:var(--board)}
@@ -148,7 +154,7 @@ html[dir="rtl"] .msg{font-family:var(--f-ar);font-size:13.5px}
 .box h3{margin:0;font-size:15px;font-weight:700}
 .box .pcs{display:flex;gap:16px;flex-wrap:wrap}
 .box .pc{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600}
-.box .pc i{width:28px;height:28px;border-radius:50%;flex:none}
+.box .pc img{width:34px;height:34px;object-fit:contain;flex:none}
 .box p{margin:0;font-size:12.5px;color:var(--cocoa-soft)}
 .free{font-family:var(--f-display);font-size:30px;font-weight:800;letter-spacing:-.02em}
 html[dir="rtl"] .free{font-family:var(--f-ar);letter-spacing:0}
@@ -158,12 +164,15 @@ html[dir="rtl"] .free{font-family:var(--f-ar);letter-spacing:0}
 <div class="wrap">
   <header>
     <a class="brand" href="../" aria-label="milkstudio home">
-      <img src="../logo.png" alt="milkstudio" width="58" height="56">
+      <img class="logo-l" src="../img/logo.png" alt="milkstudio" width="58" height="56"><img class="logo-d" src="../img/logo-dark.png" alt="milkstudio" width="58" height="56">
       <div class="sub" data-i="tag">frozen cookie dough</div>
     </a>
+    <div class="tools">
+    <button type="button" class="theme-btn" id="themeBtn" aria-label="Dark mode"><img class="ck-l" src="../img/cookie-classic.webp" alt="" width="46" height="46"><img class="ck-d" src="../img/cookie-double.webp" alt="" width="46" height="46"></button>
     <div class="lang" role="group" aria-label="Language">
       <button type="button" id="l-ar" aria-pressed="false">عربي</button>
       <button type="button" id="l-en" aria-pressed="true">EN</button>
+    </div>
     </div>
   </header>
 
@@ -252,8 +261,8 @@ html[dir="rtl"] .free{font-family:var(--f-ar);letter-spacing:0}
 <script>
 const WA = (window.SITE && window.SITE.whatsapp) || "9665XXXXXXXX";
 const SAMPLE = [
-  { en:"Classic", ar:"كلاسيك", n:3, color:"#C9A06A" },
-  { en:"Double Chocolate", ar:"دبل تشوكلت", n:3, color:"#3B2219" }
+  { en:"Classic", ar:"كلاسيك", n:3, img:"cookie-classic.webp" },
+  { en:"Double Chocolate", ar:"دبل تشوكلت", n:3, img:"cookie-double.webp" }
 ];
 
 const T = {
@@ -309,7 +318,7 @@ function update(){
   const t=T[lang], biz=$("biz").value.trim(), cr=$("cr").value.trim(), win=windowText();
   $("slipBiz").innerHTML=(biz?`${esc(biz)}${cr?`<small>CR ${esc(cr)}</small>`:""}`:`<span class="empty">${t.emptyBiz}</span>`)
     +(win?`<small class="win-s">${esc(win)}</small>`:"");
-  $("pcs").innerHTML=SAMPLE.map(s=>`<span class="pc"><i style="background:${s.color}"></i>${s.n} × ${lang==="ar"?s.ar:s.en}</span>`).join("");
+  $("pcs").innerHTML=SAMPLE.map(s=>`<span class="pc"><img src="../img/${s.img}" alt="" width="34" height="34">${s.n} × ${lang==="ar"?s.ar:s.en}</span>`).join("");
 }
 
 function setErr(id,msg){const e=$(id);e.textContent=msg||"";e.hidden=!msg;const inp=$(id.replace("E",""));if(inp)inp.setAttribute("aria-invalid",msg?"true":"false")}
@@ -356,6 +365,7 @@ function setLang(l){
   document.documentElement.lang=l; document.documentElement.dir=l==="ar"?"rtl":"ltr";
   document.querySelectorAll("[data-i]").forEach(el=>{if(typeof t[el.dataset.i]==="string")el.textContent=t[el.dataset.i]});
   document.querySelectorAll("[data-i-ph]").forEach(el=>el.placeholder=t[el.dataset.iPh]);
+  window.msTheme&&msTheme.refresh();
   $("l-ar").setAttribute("aria-pressed",l==="ar"); $("l-en").setAttribute("aria-pressed",l==="en");
   ["bizE","crE","locE","dateE"].forEach(id=>$(id).hidden=true);
   update(); if(step===2) go(2);

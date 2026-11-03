@@ -6,8 +6,10 @@
 <title>milkstudio</title>
 <meta name="description" content="milkstudio — عجينة كوكيز مجمّدة">
 <meta name="theme-color" content="#E9E7DA">
-<link rel="icon" href="logo.png">
-<link rel="apple-touch-icon" href="logo.png">
+<link rel="icon" href="img/logo.png">
+<link rel="apple-touch-icon" href="img/logo.png">
+<script src="theme.js"></script>
+<link rel="stylesheet" href="theme.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&family=IBM+Plex+Mono:wght@400&family=IBM+Plex+Sans+Arabic:wght@400;600;700&display=swap">
@@ -20,6 +22,9 @@
   --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
   color-scheme:light;
 }
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--board:#1E1814;--paper:#29211C;--cocoa:#EDE6D6;--cocoa-soft:#B9A898;--blue:#3E4C52;--line:#3D332C;color-scheme:dark}}
+:root[data-theme="dark"]{--board:#1E1814;--paper:#29211C;--cocoa:#EDE6D6;--cocoa-soft:#B9A898;--blue:#3E4C52;--line:#3D332C;color-scheme:dark}
+
 *{box-sizing:border-box}
 html,body{margin:0}
 body{background:var(--board);color:var(--cocoa);font-family:var(--f-ar);line-height:1.5;min-height:100vh;
@@ -29,6 +34,7 @@ main{max-width:420px;margin:0 auto;display:flex;flex-direction:column;gap:28px}
 
 .top{display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center}
 .top img{width:150px;height:auto;display:block}
+.topbar{display:flex;justify-content:flex-end;margin-bottom:-28px}
 .top p{margin:0;font-size:15px;color:var(--cocoa-soft)}
 .top p span{display:block;font-family:var(--f-en);font-size:13px}
 
@@ -59,8 +65,9 @@ footer{text-align:center;font-family:var(--f-mono);font-size:11px;letter-spacing
 </head>
 <body>
 <main>
+  <div class="topbar"><button type="button" class="theme-btn" id="themeBtn" aria-label="Dark mode"><img class="ck-l" src="img/cookie-classic.webp" alt="" width="46" height="46"><img class="ck-d" src="img/cookie-double.webp" alt="" width="46" height="46"></button></div>
   <header class="top">
-    <h1 style="margin:0"><img src="logo.png" alt="milkstudio" width="150" height="146"></h1>
+    <h1 style="margin:0"><img class="logo-l" src="img/logo.png" alt="milkstudio" width="150" height="146"><img class="logo-d" src="img/logo-dark.png" alt="milkstudio" width="150" height="146"></h1>
     <p>عجينة كوكيز مجمّدة<span>frozen cookie dough</span></p>
   </header>
 
