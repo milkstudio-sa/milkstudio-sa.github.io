@@ -151,6 +151,18 @@ html[dir="rtl"] .msg{font-family:var(--f-ar);font-size:13.5px}
 <style>html,body{margin:0}:root{padding-top:env(safe-area-inset-top,0px)}</style>
 <style>
 /* sample page additions */
+details{background:var(--blue);border-radius:18px;padding:4px 20px}
+summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;padding-block:14px;font-weight:600}
+summary::-webkit-details-marker{display:none}
+summary small{font-family:var(--f-en);font-weight:400;font-size:13px;color:var(--cocoa-soft);direction:ltr}
+summary:focus-visible{outline:2px solid var(--cocoa);outline-offset:2px;border-radius:6px}
+details[open] summary{border-bottom:1px dashed color-mix(in srgb,var(--cocoa) 30%,transparent)}
+ol{margin:0;padding:14px 0 16px;padding-inline-start:20px;display:flex;flex-direction:column;gap:10px;font-size:14.5px}
+ol li .en{display:block;font-family:var(--f-en);font-size:12.5px;color:var(--cocoa-soft);direction:ltr;text-align:right}
+.temp{font-family:var(--f-mono);font-size:13px;white-space:nowrap}
+summary,summary small{font-family:var(--f-hand);font-weight:400;font-synthesis:none;letter-spacing:0;text-transform:none}
+summary{font-size:20px} summary small{font-size:16px}
+html[dir="ltr"] .slip ol li .en{text-align:left}
 .box{display:flex;flex-direction:column;gap:12px;background:var(--blue);border-radius:14px;padding:16px}
 .box h3{margin:0;font-size:15px;font-weight:700}
 .box .pcs{display:flex;gap:16px;flex-wrap:wrap}
@@ -266,8 +278,18 @@ fieldset.win legend{font-size:19px}
       <div class="box">
         <h3 data-i="boxT">In the box</h3>
         <div class="pcs" id="pcs"></div>
-        <p data-i="boxP">Frozen dough, vacuum sealed. Bake from the freezer at 180°C.</p>
+        <p data-i="boxP">Frozen cookies in a vacuum-sealed bag.</p>
       </div>
+      <details>
+    <summary>طريقة الخبز <small>How to bake</small></summary>
+    <ol>
+      <li>سخّن الفرن على <span class="temp">180°C</span> وتأكد إنه وصلها فعلاً (ميزان الفرن يساعد).<span class="en">Preheat to 180°C and make sure it really gets there.</span></li>
+      <li>رتّب الحبّات وهي مجمّدة على ورق زبدة في صينية.<span class="en">Place the frozen pieces on parchment on a baking sheet.</span></li>
+      <li>الرف الأوسط <span class="temp">10 min</span><span class="en">Middle rack, 10 minutes.</span></li>
+      <li>ثم الرف العلوي <span class="temp">2 min</span> عشان يتحمّر الوجه شوي.<span class="en">Then the upper rack for 2 minutes to brown the top.</span></li>
+      <li>خلّها ترتاح قبل التقديم.<span class="en">Let them rest before serving.</span></li>
+    </ol>
+  </details>
       <div class="total"><span data-i="total">Total</span><span class="free" data-i="freeT">Free</span></div>
       <div class="foot" data-i="foot">Free delivery in Riyadh.</div>
     </aside>
@@ -290,7 +312,7 @@ const T = {
   winL:"When suits you for delivery?",dFromL:"From date",dToL:"To date",tFromL:"From",tToL:"To",winH:"Pick a range and we'll deliver within it.",
   next:"Prepare the request",h2:"Send it on WhatsApp",l2:"This opens WhatsApp with your request typed out. Press send there and we'll confirm the delivery time.",
   noOpen:"WhatsApp didn't open?",copy:"Copy the message",sendTo:"and send it to",edit:"Edit",sendWa:"Send request on WhatsApp",
-  slipT:"Your sample",boxT:"In the box",boxP:"Frozen dough, vacuum sealed. Bake from the freezer at 180°C.",total:"Total",freeT:"Free",
+  slipT:"Your sample",boxT:"In the box",boxP:"Frozen cookies in a vacuum-sealed bag.",total:"Total",freeT:"Free",
   foot:"Free delivery in Riyadh.",emptyBiz:"Your café name shows here",pcs:"pieces",
   eBiz:"Enter the café name.",eCr:"CR number should be exactly 10 digits.",eLoc:"Add a Google Maps link or the district.",
   eDate:"Pick dates from tomorrow on, with the end on or after the start.",eTime:"The end time needs to be after the start time.",
@@ -303,7 +325,7 @@ const T = {
   winL:"متى يناسبكم التوصيل؟",dFromL:"من تاريخ",dToL:"إلى تاريخ",tFromL:"من الساعة",tToL:"إلى الساعة",winH:"اختر فترة ونوصّل لك خلالها.",
   next:"جهّز الطلب",h2:"أرسله على واتساب",l2:"راح يفتح واتساب والطلب مكتوب. اضغط إرسال، ونأكد لك وقت التوصيل.",
   noOpen:"ما فتح واتساب؟",copy:"انسخ الرسالة",sendTo:"وأرسلها على",edit:"عدّل",sendWa:"أرسل الطلب على واتساب",
-  slipT:"عيّنتك",boxT:"داخل الكيس",boxP:"عجينة مجمّدة ومفرّغة من الهواء. تنخبز من الفريزر مباشرة على ١٨٠°م.",total:"المجموع",freeT:"مجاناً",
+  slipT:"عيّنتك",boxT:"داخل الكيس",boxP:"كوكيز مجمّد في كيس مفرّغ من الهواء.",total:"المجموع",freeT:"مجاناً",
   foot:"التوصيل مجاني داخل الرياض.",emptyBiz:"اسم الكافيه يظهر هنا",pcs:"حبات",
   eBiz:"اكتب اسم الكافيه.",eCr:"رقم السجل لازم يكون ١٠ أرقام.",eLoc:"أضف رابط قوقل ماب أو اسم الحي.",
   eDate:"اختر تواريخ من بكرة وطالع، وتاريخ النهاية نفس البداية أو بعدها.",eTime:"وقت النهاية لازم يكون بعد البداية.",
