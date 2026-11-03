@@ -11,3 +11,9 @@
 [data-theme="dark"] .logo-l{display:none!important}
 [data-theme="dark"] .logo-d{display:block!important}
 @media (prefers-reduced-motion:reduce){.theme-btn img{transition:none}}
+
+/* brand handwriting: Mikie's for English, Hadiya (Norah's own) for Arabic.
+   One stack covers both: Latin + digits come from Mikie's, Arabic from Hadiya. */
+@font-face{font-family:"Mikies";src:url("fonts/mikies.woff2") format("woff2");font-display:swap}
+@font-face{font-family:"Hadiya";src:url("fonts/hadiya.woff2") format("woff2");font-display:swap;size-adjust:140%}
+:root{--f-hand:"Mikies","Hadiya","IBM Plex Sans Arabic","Archivo",system-ui,sans-serif}

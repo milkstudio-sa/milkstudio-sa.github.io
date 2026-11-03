@@ -149,6 +149,24 @@ html[dir="rtl"] .msg{font-family:var(--f-ar);font-size:13.5px}
 @media (prefers-reduced-motion:no-preference){[data-step].show{animation:in .25s ease}@keyframes in{from{opacity:.4;transform:translateY(6px)}}}
 </style>
 <style>html,body{margin:0}:root{padding-top:env(safe-area-inset-top,0px)}</style>
+<style>
+/* brand handwriting where it is display text */
+
+h1,html[dir="rtl"] h1,.brand .sub,html[dir="rtl"] .brand .sub,.steps,html[dir="rtl"] .steps,.bag h3,.btn,.slip .t,.total>span:first-child,.free,html[dir="rtl"] .free,.meter .row span:first-child,fieldset.win legend,.box h3,.box .pc{font-family:var(--f-hand);font-weight:400;font-synthesis:none;letter-spacing:0;text-transform:none}
+h1{font-size:clamp(32px,7vw,42px);line-height:1.15}
+.brand .sub,html[dir="rtl"] .brand .sub{font-size:16px}
+header{flex-wrap:nowrap}.brand{min-width:0}.brand .sub{min-width:0;line-height:1.2}.tools{flex:none}
+@media (max-width:420px){.brand .sub,html[dir="rtl"] .brand .sub{font-size:14px}}
+.steps,html[dir="rtl"] .steps{font-size:17px}
+.bag h3{font-size:22px}
+.btn{font-size:19px;padding-block:12px}
+.slip .t{font-size:16px}
+.total>span:first-child{font-size:22px}
+.free,html[dir="rtl"] .free{font-size:36px}
+.meter .row span:first-child{font-size:17px}
+fieldset.win legend{font-size:19px}
+.box h3{font-size:19px} .box .pc{font-size:17px}
+</style>
 </head>
 <body>
 
