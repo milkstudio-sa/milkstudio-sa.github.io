@@ -21,3 +21,8 @@
 @font-face{font-family:"Mikies";src:url("fonts/mikies-v2.woff2") format("woff2");font-display:swap}
 @font-face{font-family:"Hadiya";src:url("fonts/hadiya.woff2") format("woff2");font-display:swap;unicode-range:U+0000-002F,U+003A-065F,U+066A-06EF,U+06FA-FFFF;size-adjust:140%}
 :root{--f-hand:"Mikies","Hadiya","IBM Plex Sans Arabic","Archivo",system-ui,sans-serif}
+
+/* every Latin digit on the site in Mikie's (with the handwritten zero); letters keep their own fonts */
+@font-face{font-family:"MkDigits";src:url("fonts/mikies-v2.woff2") format("woff2");font-display:swap;size-adjust:118%;unicode-range:U+0030-0039,U+002C,U+002E}
+html input,html textarea,html select{font-family:"IBM Plex Sans Arabic","Archivo",system-ui,sans-serif!important}
+html #cr{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace!important}

@@ -8,7 +8,7 @@
 <link rel="icon" href="../img/logo.png">
 <link rel="apple-touch-icon" href="../img/logo.png">
 <script src="../theme.js?v=4"></script>
-<link rel="stylesheet" href="../theme.css?v=6">
+<link rel="stylesheet" href="../theme.css?v=8">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
 <style>
@@ -22,10 +22,10 @@
   --line:#D6D1C0;
   --ok:#3F6B4E;
   --warn:#9A4A2F;
-  --f-display:"Archivo","IBM Plex Sans Arabic",system-ui,sans-serif;
-  --f-body:"Archivo","IBM Plex Sans Arabic",system-ui,sans-serif;
-  --f-ar:"IBM Plex Sans Arabic","Archivo",system-ui,sans-serif;
-  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --f-display:"MkDigits","Archivo","IBM Plex Sans Arabic",system-ui,sans-serif;
+  --f-body:"MkDigits","Archivo","IBM Plex Sans Arabic",system-ui,sans-serif;
+  --f-ar:"MkDigits","IBM Plex Sans Arabic","Archivo",system-ui,sans-serif;
+  --f-mono:"MkDigits","IBM Plex Mono",ui-monospace,Menlo,monospace;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--board:#1E1814;--paper:#29211C;--cocoa:#EDE6D6;--cocoa-soft:#B9A898;--blue:#3E4C52;--line:#3D332C;--ok:#8CC09C;--warn:#E39A7C;color-scheme:dark}}
 :root[data-theme="dark"]{--board:#1E1814;--paper:#29211C;--cocoa:#EDE6D6;--cocoa-soft:#B9A898;--blue:#3E4C52;--line:#3D332C;--ok:#8CC09C;--warn:#E39A7C;color-scheme:dark}
@@ -220,7 +220,7 @@ fieldset.win legend{font-size:19px}
 
   <div class="grid">
     <form class="panel" id="form" novalidate>
-      <input type="text" id="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+      <input type="text" id="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;border:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);opacity:0">
       <!-- STEP 1 -->
       <section class="panel show" data-step="1">
         <h1 data-i="h1">Order a sample for your café</h1>
