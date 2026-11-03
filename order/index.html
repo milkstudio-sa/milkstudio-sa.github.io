@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#E9E7DA">
 <title>milkstudio · Wholesale order</title>
+<link rel="icon" href="../logo.png">
+<link rel="apple-touch-icon" href="../logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
 <style>
@@ -12,7 +14,7 @@
 :root{
   --board:#E9E7DA;      /* retail box board */
   --paper:#F6F4EC;
-  --cocoa:#4A2E22;
+  --cocoa:#3A2920;
   --cocoa-soft:#7A5A4B;
   --blue:#C3CFD3;
   --line:#D6D1C0;
@@ -23,9 +25,6 @@
   --f-ar:"IBM Plex Sans Arabic","Archivo",system-ui,sans-serif;
   --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
 }
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --board:#1E1814;--paper:#29211C;--cocoa:#EDE6D6;--cocoa-soft:#B9A898;--blue:#3E4C52;--line:#3D332C;--ok:#8CC09C;--warn:#E39A7C;color-scheme:dark}}
-:root[data-theme="dark"]{--board:#1E1814;--paper:#29211C;--cocoa:#EDE6D6;--cocoa-soft:#B9A898;--blue:#3E4C52;--line:#3D332C;--ok:#8CC09C;--warn:#E39A7C;color-scheme:dark}
 
 *{box-sizing:border-box}
 body{background:var(--board);color:var(--cocoa);font-family:var(--f-body);font-size:15px;line-height:1.5;
@@ -36,7 +35,7 @@ html[dir="rtl"] .brand .sub{font-family:var(--f-ar);letter-spacing:0;text-transf
 
 header{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .brand{color:inherit;text-decoration:none;display:flex;align-items:center;gap:12px}
-.brand svg{width:46px;height:46px;flex:none}
+.brand img{width:58px;height:auto;flex:none;display:block}
 .brand .wm{font-family:var(--f-display);font-weight:800;font-size:22px;letter-spacing:-.02em;line-height:1}
 .brand .sub{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--cocoa-soft)}
 .lang{display:flex;border:1px solid var(--cocoa);border-radius:999px;overflow:hidden}
@@ -67,8 +66,13 @@ input:focus,textarea:focus{outline:none;border-color:var(--cocoa)}
 input[aria-invalid="true"]{border-color:var(--warn)}
 #cr{font-family:var(--f-mono);letter-spacing:.12em;font-size:17px;direction:ltr;text-align:start}
 html[dir="rtl"] #cr{text-align:right}
+fieldset.win{border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;min-width:0}
+fieldset.win legend{padding:0;margin-bottom:10px;font-weight:600;font-size:14px}
+.win .hint{font-size:12.5px;color:var(--cocoa-soft)}
+.win .two{grid-template-columns:1fr 1fr}
+input[type="date"],input[type="time"]{min-height:48px}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-@media (max-width:520px){.two{grid-template-columns:1fr}}
+@media (max-width:520px){.two:not(.win .two){grid-template-columns:1fr}}
 
 /* flavour bags */
 .bags{display:flex;flex-direction:column;gap:12px}
@@ -106,6 +110,7 @@ html[dir="rtl"] #cr{text-align:right}
   -webkit-mask:radial-gradient(circle 6px at 50% 100%,transparent 98%,#000) 0 0/16px 100% repeat-x;mask:radial-gradient(circle 6px at 50% 100%,transparent 98%,#000) 0 0/16px 100% repeat-x;padding-bottom:26px}
 .slip .t{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--cocoa-soft);display:flex;justify-content:space-between;gap:8px}
 .slip .biz{font-weight:700;font-size:16px;line-height:1.3;word-break:break-word}
+.slip .biz small.win-s{font-family:inherit;direction:inherit;margin-top:6px;color:var(--cocoa)}
 .slip .biz small{display:block;font-family:var(--f-mono);font-weight:400;font-size:12px;color:var(--cocoa-soft);direction:ltr;text-align:start}
 .lines{display:flex;flex-direction:column;gap:8px;font-size:14px;border-block:1px dashed var(--line);padding-block:12px}
 .ln{display:flex;justify-content:space-between;gap:10px;font-variant-numeric:tabular-nums}
@@ -143,8 +148,8 @@ html[dir="rtl"] .msg{font-family:var(--f-ar);font-size:13.5px}
 <div class="wrap">
   <header>
     <a class="brand" href="../" aria-label="milkstudio home">
-      <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M9 21.5 L9.6 13 L14.2 13.2 L14 17.2 L24.3 7.5 L39.4 21.2 L38.6 41.5 L9.8 41 Z" fill="var(--cocoa)"/><text x="24.2" y="29" text-anchor="middle" font-family="Archivo,sans-serif" font-weight="800" font-size="7.6" fill="var(--board)">milk</text><text x="24" y="36.5" text-anchor="middle" font-family="Archivo,sans-serif" font-weight="800" font-size="7.6" fill="var(--board)">studio</text></svg>
-      <div><div class="wm">milkstudio</div><div class="sub" data-i="tag">frozen cookie dough · wholesale</div></div>
+      <img src="../logo.png" alt="milkstudio" width="58" height="56">
+      <div class="sub" data-i="tag">frozen cookie dough</div>
     </a>
     <div class="lang" role="group" aria-label="Language">
       <button type="button" id="l-ar" aria-pressed="false">عربي</button>
@@ -190,17 +195,23 @@ html[dir="rtl"] .msg{font-family:var(--f-ar);font-size:13.5px}
       <!-- STEP 2 -->
       <section class="panel" data-step="2">
         <h1 data-i="h2">Build your order</h1>
-        <p class="lede" data-i="l2">Each bag holds 24 dough balls (45 g), vacuum sealed. Bake from frozen at 180°C.</p>
+        <p class="lede" data-i="l2">Each bag holds 24 pieces of frozen cookie dough (45 g each), vacuum sealed. Bake straight from the freezer at 180°C.</p>
         <div class="bags" id="bags"></div>
         <div class="meter" id="meter">
           <div class="row"><span id="meterT"></span><span id="meterN" class="num"></span></div>
           <div class="dots" id="dots"><i></i><i></i><i></i><i></i><i></i><i></i></div>
         </div>
-        <div class="field">
-          <label for="date" data-i="dateL">Preferred delivery date</label>
-          <input type="date" id="date">
+        <fieldset class="win">
+          <legend data-i="winL">Best time for delivery</legend>
+          <div class="two">
+            <div class="field"><label for="dFrom" data-i="dFromL">From date</label><input type="date" id="dFrom"></div>
+            <div class="field"><label for="dTo" data-i="dToL">To date</label><input type="date" id="dTo"></div>
+            <div class="field"><label for="tFrom" data-i="tFromL">From</label><input type="time" id="tFrom" value="09:00" step="1800"></div>
+            <div class="field"><label for="tTo" data-i="tToL">To</label><input type="time" id="tTo" value="13:00" step="1800"></div>
+          </div>
+          <div class="hint" data-i="winH">Pick a range and we'll deliver within it.</div>
           <div class="err" id="dateE" hidden></div>
-        </div>
+        </fieldset>
         <div class="field">
           <label for="notes" data-i="notesL">Notes (optional)</label>
           <textarea id="notes" rows="2" data-i-ph="notesP" placeholder="Delivery time window, gate number, anything we should know"></textarea>
@@ -215,7 +226,7 @@ html[dir="rtl"] .msg{font-family:var(--f-ar);font-size:13.5px}
       <!-- STEP 3 -->
       <section class="panel" data-step="3">
         <h1 data-i="h3">Send it on WhatsApp</h1>
-        <p class="lede" data-i="l3">This opens WhatsApp with your order typed out. Press send there and we'll confirm the delivery and send a payment link.</p>
+        <p class="lede" data-i="l3">This opens WhatsApp with your order typed out. Press send there and we'll confirm the delivery and send our bank details.</p>
         <div class="review">
           <div class="msg" id="msg"></div>
           <div class="copyrow">
@@ -237,7 +248,7 @@ html[dir="rtl"] .msg{font-family:var(--f-ar);font-size:13.5px}
 
     <!-- SLIP -->
     <aside class="slip" aria-live="polite">
-      <div class="t"><span data-i="slipT">Order slip</span><span id="ref" class="num"></span></div>
+      <div class="t"><span data-i="slipT">Order slip</span><span><span data-i="refL">Order no.</span> <span id="ref" class="num"></span></span></div>
       <div class="biz" id="slipBiz"></div>
       <div class="lines" id="lines"></div>
       <div class="total"><span data-i="total">Total</span><span><b id="tot">0</b> <small data-i="sar">SAR</small></span></div>
@@ -259,43 +270,43 @@ const CONFIG = {
   deliveryFee: 35,               // SAR, charged under the free-delivery minimum
   flavours: [
     { id:"classic", color:"#C9A06A", en:"Classic", ar:"كلاسيك",
-      enD:"Brown butter, dark & milk Belcolade chocolate", arD:"زبدة بنية، شوكولاتة بلكولاد داكنة وبالحليب" },
+      enD:"Brown butter, dark & milk couverture chocolate", arD:"زبدة بنية، شوكولاتة كوفرتير داكنة وبالحليب" },
     { id:"double",  color:"#3B2219", en:"Double Chocolate", ar:"دبل تشوكلت",
-      enD:"Cocoa dough, Belcolade chocolate chunks", arD:"عجينة كاكاو مع قطع شوكولاتة بلكولاد" }
+      enD:"Cocoa dough, couverture chocolate chunks", arD:"عجينة كاكاو مع قطع شوكولاتة كوفرتير" }
   ]
 };
 /* ========================== */
 
 const T = {
- en:{tag:"frozen cookie dough · wholesale",s1:"Business",s2:"Order",s3:"Send",h1:"Who's ordering?",
+ en:{tag:"frozen cookie dough",s1:"Business",s2:"Order",s3:"Send",h1:"Who's ordering?",
   l1:"We sell wholesale to registered cafés and stores. Your commercial registration lets us confirm the business before the first delivery.",
   bizL:"Business name",crL:"Commercial registration (CR) number",crH:"10 digits, as on your CR certificate.",contactL:"Contact name",distL:"District",
-  next:"Continue to order",h2:"Build your order",l2:"Each bag holds 24 dough balls (45 g), vacuum sealed. Bake from frozen at 180°C.",
-  dateL:"Preferred delivery date",notesL:"Notes (optional)",notesP:"Delivery time window, gate number, anything we should know",
+  next:"Continue to order",h2:"Build your order",l2:"Each bag holds 24 pieces of frozen cookie dough (45 g each), vacuum sealed. Bake straight from the freezer at 180°C.",
+  winL:"Best time for delivery",dFromL:"From date",dToL:"To date",tFromL:"From",tToL:"To",winH:"Pick a range and we'll deliver within it.",notesL:"Notes (optional)",notesP:"Gate number, who receives it, anything we should know",
   back:"Back",review:"Review order",h3:"Send it on WhatsApp",l3:"This opens WhatsApp with your order typed out. Press send there and we'll confirm the delivery and send a payment link.",
   noOpen:"WhatsApp didn't open?",copy:"Copy the message",sendTo:"and send it to",edit:"Edit order",sendWa:"Send order on WhatsApp",
-  slipT:"Order slip",total:"Total",sar:"SAR",bag:"bag",bags:"bags",pcs:"pieces",perBag:"per bag",
+  slipT:"Order slip",refL:"Order no.",total:"Total",sar:"SAR",bag:"bag",bags:"bags",pcs:"pieces",perBag:"per bag",
   emptyBiz:"Your business name shows here",empty:"Add bags to see your total.",delivery:"Delivery",free:"Free",
   meterGo:n=>`${n} more ${n===1?"bag":"bags"} for free delivery`,meterOk:"Free delivery unlocked",
-  foot:"Prices exclude VAT where applicable. Payment by link (Apple Pay) after we confirm.",
+  foot:"Prices exclude VAT where applicable. Payment by bank transfer once we confirm your order.",
   eBiz:"Enter the business name.",eCr:"CR number should be exactly 10 digits.",eDist:"Enter the district for delivery.",
-  eBag:"Add at least one bag.",eDate:"Pick a delivery date from tomorrow on.",copied:"Copied",copyFail:"Select the text above and copy it.",
-  m:{hi:"New wholesale order — milkstudio",biz:"Business",cr:"CR",contact:"Contact",district:"District",date:"Delivery date",items:"Order",
-     sub:"Subtotal",del:"Delivery",tot:"Total",notes:"Notes",ref:"Ref"}},
- ar:{tag:"عجينة كوكيز مجمّدة · جملة",s1:"المنشأة",s2:"الطلب",s3:"الإرسال",h1:"مين يطلب؟",
+  eBag:"Add at least one bag.",eDate:"Pick dates from tomorrow on, with the end on or after the start.",eTime:"The end time needs to be after the start time.",copied:"Copied",copyFail:"Select the text above and copy it.",
+  m:{hi:"New wholesale order — milkstudio",biz:"Business",cr:"CR",contact:"Contact",district:"District",date:"Best time for delivery",items:"Order",
+     sub:"Subtotal",del:"Delivery",tot:"Total",notes:"Notes",ref:"Order no."}},
+ ar:{tag:"عجينة كوكيز مجمّدة",s1:"المنشأة",s2:"الطلب",s3:"الإرسال",h1:"مين يطلب؟",
   l1:"نبيع بالجملة للمقاهي والمتاجر المسجّلة. رقم السجل التجاري يساعدنا نتأكد من المنشأة قبل أول توصيل.",
   bizL:"اسم المنشأة",crL:"رقم السجل التجاري",crH:"١٠ أرقام، كما في شهادة السجل.",contactL:"اسم المسؤول",distL:"الحي",
-  next:"التالي: الطلب",h2:"جهّز طلبك",l2:"كل كيس فيه ٢٤ كرة عجين (٤٥ جم)، مفرّغ من الهواء. تُخبز مباشرة من الفريزر على ١٨٠°م.",
-  dateL:"تاريخ التوصيل المفضّل",notesL:"ملاحظات (اختياري)",notesP:"وقت التوصيل، رقم البوابة، أي شي نحتاج نعرفه",
-  back:"رجوع",review:"راجع الطلب",h3:"أرسله على واتساب",l3:"راح يفتح واتساب والطلب مكتوب. اضغط إرسال، ونأكد لك التوصيل ونرسل رابط الدفع.",
+  next:"التالي: الطلب",h2:"جهّز طلبك",l2:"كل كيس فيه ٢٤ حبة عجينة كوكيز مجمّدة (٤٥ جم للحبة)، مفرّغ من الهواء. تنخبز من الفريزر مباشرة على ١٨٠°م.",
+  winL:"الوقت المناسب للتوصيل",dFromL:"من تاريخ",dToL:"إلى تاريخ",tFromL:"من الساعة",tToL:"إلى الساعة",winH:"اختر فترة ونوصّل لك خلالها.",notesL:"ملاحظات (اختياري)",notesP:"رقم البوابة، مين يستلم، أي شي نحتاج نعرفه",
+  back:"رجوع",review:"راجع الطلب",h3:"أرسله على واتساب",l3:"راح يفتح واتساب والطلب مكتوب. اضغط إرسال، ونأكد لك التوصيل ونرسل لك بيانات التحويل.",
   noOpen:"ما فتح واتساب؟",copy:"انسخ الرسالة",sendTo:"وأرسلها على",edit:"عدّل الطلب",sendWa:"أرسل الطلب على واتساب",
-  slipT:"فاتورة الطلب",total:"المجموع",sar:"ر.س",bag:"كيس",bags:"أكياس",pcs:"حبة",perBag:"للكيس",
+  slipT:"فاتورة الطلب",refL:"رقم الطلب",total:"المجموع",sar:"ر.س",bag:"كيس",bags:"أكياس",pcs:"حبة",perBag:"للكيس",
   emptyBiz:"اسم منشأتك يظهر هنا",empty:"أضف أكياس عشان يظهر المجموع.",delivery:"التوصيل",free:"مجاني",
   meterGo:n=>`باقي ${n} ${n===1?"كيس":"أكياس"} للتوصيل المجاني`,meterOk:"التوصيل مجاني",
-  foot:"الأسعار لا تشمل ضريبة القيمة المضافة إن وُجدت. الدفع برابط (Apple Pay) بعد التأكيد.",
+  foot:"الأسعار لا تشمل ضريبة القيمة المضافة إن وُجدت. الدفع بتحويل بنكي بعد ما نأكد طلبك.",
   eBiz:"اكتب اسم المنشأة.",eCr:"رقم السجل لازم يكون ١٠ أرقام.",eDist:"اكتب الحي للتوصيل.",
-  eBag:"أضف كيس واحد على الأقل.",eDate:"اختر تاريخ من بكرة وطالع.",copied:"تم النسخ",copyFail:"حدّد النص فوق وانسخه.",
-  m:{hi:"طلب جملة جديد — milkstudio",biz:"المنشأة",cr:"السجل التجاري",contact:"المسؤول",district:"الحي",date:"تاريخ التوصيل",items:"الطلب",
+  eBag:"أضف كيس واحد على الأقل.",eDate:"اختر تواريخ من بكرة وطالع، وتاريخ النهاية نفس البداية أو بعدها.",eTime:"وقت النهاية لازم يكون بعد البداية.",copied:"تم النسخ",copyFail:"حدّد النص فوق وانسخه.",
+  m:{hi:"طلب جملة جديد — milkstudio",biz:"المنشأة",cr:"السجل التجاري",contact:"المسؤول",district:"الحي",date:"الوقت المناسب للتوصيل",items:"الطلب",
      sub:"المجموع الفرعي",del:"التوصيل",tot:"الإجمالي",notes:"ملاحظات",ref:"رقم الطلب"}}
 };
 
@@ -306,8 +317,20 @@ const bagPrice = CONFIG.piecesPerBag * CONFIG.pricePerPiece;
 const ref = (()=>{const d=new Date();const p=n=>String(n).padStart(2,"0");return `MS-${String(d.getFullYear()).slice(2)}${p(d.getMonth()+1)}${p(d.getDate())}-${Math.random().toString(36).slice(2,6).toUpperCase()}`})();
 const fmt = n => n.toLocaleString("en-US");
 
-// min date = tomorrow
-(()=>{const d=new Date();d.setDate(d.getDate()+1);$("date").min=d.toISOString().slice(0,10)})();
+// earliest date = tomorrow (local time)
+const tomorrow=(()=>{const d=new Date();d.setDate(d.getDate()+1);const p=n=>String(n).padStart(2,"0");return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}`})();
+$("dFrom").min=tomorrow; $("dTo").min=tomorrow;
+$("dFrom").addEventListener("change",()=>{const f=$("dFrom").value;$("dTo").min=f||tomorrow;if(f&&(!$("dTo").value||$("dTo").value<f))$("dTo").value=f;update()});
+["dTo","tFrom","tTo"].forEach(id=>$(id).addEventListener("change",update));
+
+function fmtDate(iso){const loc=lang==="ar"?"ar-SA-u-ca-gregory-nu-latn":"en-GB";
+  return new Date(iso+"T12:00:00").toLocaleDateString(loc,{weekday:"long",day:"numeric",month:"long"})}
+function fmtTime(hm){if(!hm)return "";let [h,m]=hm.split(":").map(Number);const pm=h>=12;h=h%12||12;
+  const suf=lang==="ar"?(pm?"م":"ص"):(pm?"pm":"am");return `${h}:${String(m).padStart(2,"0")} ${suf}`}
+function windowText(){const f=$("dFrom").value,t=$("dTo").value||f;if(!f)return "";
+  const d=f===t?fmtDate(f):`${fmtDate(f)} – ${fmtDate(t)}`;
+  const tm=($("tFrom").value&&$("tTo").value)?`، ${fmtTime($("tFrom").value)} – ${fmtTime($("tTo").value)}`:"";
+  return d+(lang==="ar"?tm:tm.replace("، ",", "))}
 
 function renderBags(){
   const t=T[lang];
@@ -339,7 +362,9 @@ function totals(){
 function update(){
   const t=T[lang], s=totals();
   const biz=$("biz").value.trim(), cr=$("cr").value.trim();
-  $("slipBiz").innerHTML = biz ? `${esc(biz)}${cr?`<small>CR ${esc(cr)}</small>`:""}` : `<span class="empty">${t.emptyBiz}</span>`;
+  const win=windowText();
+  $("slipBiz").innerHTML = (biz ? `${esc(biz)}${cr?`<small>CR ${esc(cr)}</small>`:""}` : `<span class="empty">${t.emptyBiz}</span>`)
+    + (win?`<small class="win-s">${esc(win)}</small>`:"");
   $("lines").innerHTML = s.bags===0 ? `<div class="empty">${t.empty}</div>` :
     CONFIG.flavours.filter(f=>qty[f.id]).map(f=>`<div class="ln"><span>${qty[f.id]} × ${lang==="ar"?f.ar:f.en}</span><span>${fmt(qty[f.id]*bagPrice)}</span></div>`).join("")
     + `<div class="ln mute"><span>${fmt(s.bags*CONFIG.piecesPerBag)} ${t.pcs}</span><span>${fmt(s.sub)}</span></div>`
@@ -366,7 +391,10 @@ function valid1(){
 function valid2(){
   const t=T[lang]; let ok=true;
   if(!totals().bags){$("bagE").textContent=t.eBag;$("bagE").hidden=false;ok=false}
-  const v=$("date").value; const dOk=v && v>=$("date").min; setErr("dateE",dOk?"":t.eDate); ok=ok&&dOk;
+  const f=$("dFrom").value, to=$("dTo").value||f;
+  const dOk=!!f && f>=tomorrow && to>=f;
+  const tOk=!!$("tFrom").value && !!$("tTo").value && $("tTo").value>$("tFrom").value;
+  const e=$("dateE"); e.textContent=!dOk?t.eDate:(!tOk?t.eTime:""); e.hidden=dOk&&tOk; ok=ok&&dOk&&tOk;
   return ok;
 }
 
@@ -375,7 +403,7 @@ function message(){
   const L=[`*${m.hi}*`,`${m.ref}: ${ref}`,"",
     `${m.biz}: ${$("biz").value.trim()}`,`${m.cr}: ${$("cr").value.trim()}`];
   if($("contact").value.trim()) L.push(`${m.contact}: ${$("contact").value.trim()}`);
-  L.push(`${m.district}: ${$("district").value.trim()}`,`${m.date}: ${$("date").value}`,"",`*${m.items}*`);
+  L.push(`${m.district}: ${$("district").value.trim()}`,`${m.date}: ${windowText()}`,"",`*${m.items}*`);
   CONFIG.flavours.filter(f=>qty[f.id]).forEach(f=>L.push(`• ${lang==="ar"?f.ar:f.en} × ${qty[f.id]} ${qty[f.id]===1?t.bag:t.bags} (${qty[f.id]*CONFIG.piecesPerBag} ${t.pcs}) — ${fmt(qty[f.id]*bagPrice)} ${t.sar}`));
   L.push("",`${m.sub}: ${fmt(s.sub)} ${t.sar}`,`${m.del}: ${s.del?fmt(s.del)+" "+t.sar:t.free}`,`*${m.tot}: ${fmt(s.total)} ${t.sar}*`);
   if($("notes").value.trim()) L.push("",`${m.notes}: ${$("notes").value.trim()}`);
