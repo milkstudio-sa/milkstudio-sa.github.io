@@ -16,8 +16,8 @@
 [data-theme="dark"] .logo-d{display:block!important}
 
 /* brand handwriting: Mikie's for English, Hadiya (Norah's own) for Arabic.
-   Latin from Mikie's, Arabic from Hadiya. Digits are excluded from both (their 0 is an ornament),
-   so numbers always fall back to the clear fonts. */
-@font-face{font-family:"Mikies";src:url("fonts/mikies.woff2") format("woff2");font-display:swap;unicode-range:U+0000-002F,U+003A-065F,U+066A-06EF,U+06FA-FFFF}
+   Latin and digits from Mikie's (its ornament 0 is replaced by a handwritten zero made from its O),
+   Arabic from Hadiya. Hadiya's digits are skipped because its 0 is an ornament. */
+@font-face{font-family:"Mikies";src:url("fonts/mikies-v2.woff2") format("woff2");font-display:swap}
 @font-face{font-family:"Hadiya";src:url("fonts/hadiya.woff2") format("woff2");font-display:swap;unicode-range:U+0000-002F,U+003A-065F,U+066A-06EF,U+06FA-FFFF;size-adjust:140%}
 :root{--f-hand:"Mikies","Hadiya","IBM Plex Sans Arabic","Archivo",system-ui,sans-serif}
