@@ -10,7 +10,7 @@ window.SITE = {
   whatsapp: "966506368029",
 
   // Google Sheet that saves form answers (Apps Script web app URL). Leave "" to turn off.
-  sheetUrl: "",
+  sheetUrl: "https://script.google.com/macros/s/AKfycbyPBrfxQqv4UZUPCO3P3YF_wOys-tXoqxtUBPX8Ib2dAoN7HqIStNHDrSeCqGVwtVYc/exec",
 
   instagram: "milkstudio.sa",
   tiktok: "milkstudio.sa",
