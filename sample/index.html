@@ -282,7 +282,7 @@ html,body{overflow-x:clip;max-width:100%}
         </div>
         <div class="nav">
           <button type="button" class="btn ghost" id="back1" data-i="edit">Edit</button>
-          <a class="btn wa" id="wa" href="#" target="_blank" rel="noopener">
+          <a class="btn wa" id="wa" data-ev="Send on WhatsApp" href="#" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.6.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3a.4.4 0 0 0 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.4-.3Z"/></svg>
             <span data-i="sendWa">Send request on WhatsApp</span>
           </a>
@@ -303,8 +303,8 @@ html,body{overflow-x:clip;max-width:100%}
       <div class="total"><span data-i="total">Total</span><span class="free" data-i="freeT">Free</span></div>
       <div class="foot" data-i="foot">Free delivery in Riyadh.</div>
     </aside>
-      <details>
-    <summary>طريقة الخبز <small>How to bake</small></summary>
+      <details data-ev-wrap>
+    <summary data-ev="How to bake">طريقة الخبز <small>How to bake</small></summary>
     <ol>
       <li>سخّن الفرن على 180°م (وتأكد إنه وصلها فعلاً باستخدام مقياس الحرارة).<span class="en">Preheat to 180°C and make sure it really gets there.</span></li>
       <li>صف الكوكيز وهو مجمد على ورق زبدة في صينية.<span class="en">Place the cookies while still frozen on parchment paper on a baking sheet.</span></li>
@@ -317,8 +317,8 @@ html,body{overflow-x:clip;max-width:100%}
   </div>
 </div>
 
-<script src="../links.js?v=2"></script>
-<script src="../track.js?v=1"></script>
+<script src="../links.js?v=3"></script>
+<script src="../track.js?v=2"></script>
 <script>
 const WA = (window.SITE && window.SITE.whatsapp) || "9665XXXXXXXX";
 const SAMPLE = [
