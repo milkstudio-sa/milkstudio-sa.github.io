@@ -72,8 +72,14 @@
     from = q || (/instagram/.test(ref) ? "ig" : /tiktok/.test(ref) ? "tiktok" : /whatsapp|wa\.me/.test(ref) ? "whatsapp" : ref) || "direct";
     store("ms-from", from);
   }
-  var visitor = store("ms-visitor");
-  if (!visitor) { visitor = Date.now().toString(36) + Math.random().toString(36).slice(2, 6); store("ms-visitor", visitor); }
+  // Visitor code is remembered by this browser (not just this tab), so a returning phone keeps the same code.
+  // Anonymous: a random string, nothing about the person.
+  var visitor = null;
+  try { visitor = localStorage.getItem("ms-visitor-id"); } catch (e) {}
+  if (!visitor) {
+    visitor = "v-" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+    try { localStorage.setItem("ms-visitor-id", visitor); } catch (e) {}
+  }
   var page = /\/order\//.test(location.pathname) ? "Wholesale order" : /\/sample\//.test(location.pathname) ? "Free sample" : "Home";
 
   function send(event, button) {
