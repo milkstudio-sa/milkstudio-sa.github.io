@@ -24,7 +24,7 @@ window.SITE = {
 
     { ar: "اطلب بالجملة", en: "Wholesale order", href: "order/" },
 
-    { ar: "اطلب عيّنة مجانية", en: "Request a free sample", href: "sample/" },
+    { ar: "عيّنة مجانية للكافيهات", en: "Free sample for cafés", href: "sample/" },
 
     { ar: "تواصل على واتساب", en: "Chat on WhatsApp", whatsapp: "" },
 
