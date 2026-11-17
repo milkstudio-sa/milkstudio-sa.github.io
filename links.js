@@ -22,6 +22,8 @@ window.SITE = {
   links: [
     { ar: "اطلب بالجملة", en: "Wholesale order", href: "order/", main: true },
 
+    { ar: "طلب للأفراد", en: "Personal order", href: "retail/" },
+
     { ar: "اطلب عيّنة مجانية", en: "Request a free sample", href: "sample/" },
 
     { ar: "تواصل على واتساب", en: "Chat on WhatsApp", whatsapp: "" },
