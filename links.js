@@ -20,9 +20,9 @@ window.SITE = {
   //  - whatsapp: opens WhatsApp with this message already typed ("" for an empty chat)
   //  - main: true makes it the big dark button
   links: [
-    { ar: "اطلب بالجملة", en: "Wholesale order", href: "order/", main: true },
+    { ar: "طلب للأفراد", en: "Personal order", href: "retail/", main: true },
 
-    { ar: "طلب للأفراد", en: "Personal order", href: "retail/" },
+    { ar: "اطلب بالجملة", en: "Wholesale order", href: "order/" },
 
     { ar: "اطلب عيّنة مجانية", en: "Request a free sample", href: "sample/" },
 
