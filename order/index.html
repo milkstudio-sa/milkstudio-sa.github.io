@@ -188,6 +188,11 @@ fieldset.win legend{font-size:19px}
 </style>
 <style>
 /* personal order: pack rows inside each flavour card */
+.offer{display:flex;flex-direction:column;gap:2px;background:var(--blue);border-radius:14px;padding:12px 16px}
+.offer .o-t{font-family:var(--f-hand);font-weight:400;font-synthesis:none;font-size:24px;line-height:1.15}
+.offer span{font-size:13px;font-weight:600}
+.offer.on span{color:var(--ok)}
+.ln.disc span:last-child{color:var(--ok)}
 .bag.retail{grid-template-columns:auto minmax(0,1fr)}
 .packs{grid-column:1/-1;display:flex;flex-direction:column;gap:10px;border-top:1px dashed var(--line);padding-top:12px}
 .pk{display:flex;justify-content:space-between;align-items:center;gap:12px}
@@ -244,6 +249,7 @@ fieldset.win legend{font-size:19px}
       <section class="panel" data-step="2">
         <h1 data-i="h2">Build your order</h1>
         <p class="lede" data-i="l2">Frozen cookie dough in a vacuum-sealed bag, 45 g a piece. Bake straight from the freezer.</p>
+        <div class="offer" id="offer" aria-live="polite"><b class="o-t" data-i="offerT">Two bags for 89 SAR, mix the flavours</b><span id="offerS"></span></div>
         <div class="bags" id="bags"></div>
         <fieldset class="win">
           <legend data-i="winL">Best time for delivery</legend>
@@ -309,7 +315,8 @@ fieldset.win legend{font-size:19px}
 /* ======= EDIT THESE ======= */
 const CONFIG = {
   whatsapp: (window.SITE && window.SITE.whatsapp) || "9665XXXXXXXX",   // set in ../links.js
-  packs: [ { n:6, price:49 } ],                                                         // SAR, delivery not included
+  packs: [ { n:6, price:49 } ],
+  offer: { bags:2, price:89 },                                        // any 2 bags (mix flavours) for 89 SAR; set to null to turn off                                                         // SAR, delivery not included
   flavours: [
     { id:"classic", img:"cookie-classic-v2.webp", en:"Classic", ar:"كلاسيك",
       enD:"Classic brown butter dough, with a mix of dark and milk Belcolade chocolate", arD:"عجينة كلاسيكية بالزبدة البنية، ومكس شوكولاتة بيلكولاد داكنة وبالحليب" },
@@ -329,11 +336,11 @@ const T = {
   back:"Back",review:"Review order",h3:"Send it on WhatsApp",l3:"This opens WhatsApp with your order typed out. Press send there and we'll reply with the delivery fee and our bank details.",
   noOpen:"WhatsApp didn't open?",copy:"Copy the message",sendTo:"and send it to",edit:"Edit order",sendWa:"Send order on WhatsApp",
   slipT:"Order slip",refL:"Order no.",total:"Total",sar:"SAR",plusDel:"+ delivery",pcs:"pieces",pack:n=>`Bag of ${n}`,bag:"bag",bags:"bags",
-  emptyName:"Your name shows here",empty:"Add a bag to see your total.",delivery:"Delivery",byDist:"Based on distance",
+  emptyName:"Your name shows here",offerT:"Two bags for 89 SAR, mix the flavours",offer0:"Pick any two bags and save 9 SAR.",offer1:"Add one more bag and save 9 SAR.",offerOn:n=>`You saved ${n} SAR`,disc:"Offer discount",empty:"Add a bag to see your total.",delivery:"Delivery",byDist:"Based on distance",
   foot:"We'll send the delivery fee on WhatsApp before you pay. Payment by bank transfer.",
   eName:"Enter your name.",eLoc:"Add a Google Maps link or your district.",
   eBag:"Add at least one bag.",eNoStart:"Pick the first day that suits you for delivery.",eTooSoon:"The earliest delivery is tomorrow. Pick tomorrow or a later date.",eEndBefore:"The end date is before the start date. Pick the same day or a later one.",eNoTime:"Pick both a start time and an end time.",eTime:"The end time is before or the same as the start time. Pick a later end time.",copied:"Copied",copyFail:"Select the text above and copy it.",
-  m:{hi:"New order — milkstudio",name:"Name",loc:"Location",date:"Best time for delivery",items:"Order",sub:"Total (without delivery)",del:"Delivery",delTxt:"please send the fee for my location",notes:"Notes",ref:"Order no."}},
+  m:{hi:"New order — milkstudio",disc:"Offer (2 bags for 89)",name:"Name",loc:"Location",date:"Best time for delivery",items:"Order",sub:"Total (without delivery)",del:"Delivery",delTxt:"please send the fee for my location",notes:"Notes",ref:"Order no."}},
  ar:{tag:"عجينة كوكيز مجمّدة",s1:"بياناتك",s2:"الطلب",s3:"الإرسال",h1:"مين يطلب؟",
   l1:"عجينة كوكيز مجمّدة تخبزها في بيتك، متى ما بغيت.",
   nameL:"اسمك",locL:"الموقع",locP:"رابط قوقل ماب، أو اسم الحي",locH:"رابط قوقل ماب يساعدنا نحسب التوصيل بدقة.",
@@ -343,11 +350,11 @@ const T = {
   back:"رجوع",review:"راجع الطلب",h3:"أرسله على واتساب",l3:"راح يفتح واتساب والطلب مكتوب. اضغط إرسال، ونرد عليك بسعر التوصيل وبيانات التحويل.",
   noOpen:"ما فتح واتساب؟",copy:"انسخ الرسالة",sendTo:"وأرسلها على",edit:"عدّل الطلب",sendWa:"أرسل الطلب على واتساب",
   slipT:"فاتورة الطلب",refL:"رقم الطلب",total:"المجموع",sar:"ر.س",plusDel:"+ التوصيل",pcs:"حبة",pack:n=>`كيس ${n} حبات`.replace("12 حبات","12 حبة"),bag:"كيس",bags:"أكياس",
-  emptyName:"اسمك يظهر هنا",empty:"أضف كيس عشان يظهر المجموع.",delivery:"التوصيل",byDist:"حسب المسافة",
+  emptyName:"اسمك يظهر هنا",offerT:"كيسين بـ 89 ر.س، اخلط النكهات",offer0:"اختر أي كيسين ووفّر 9 ر.س.",offer1:"أضف كيس ثاني ووفّر 9 ر.س.",offerOn:n=>`وفّرت ${n} ر.س`,disc:"خصم العرض",empty:"أضف كيس عشان يظهر المجموع.",delivery:"التوصيل",byDist:"حسب المسافة",
   foot:"نرسل لك سعر التوصيل على الواتساب قبل الدفع. الدفع بتحويل بنكي.",
   eName:"اكتب اسمك.",eLoc:"أضف رابط قوقل ماب أو اسم الحي.",
   eBag:"أضف كيس واحد على الأقل.",eNoStart:"اختر أول يوم يناسبك للتوصيل.",eTooSoon:"أقرب توصيل بكرة. اختر بكرة أو تاريخ بعده.",eEndBefore:"تاريخ النهاية قبل تاريخ البداية. اختر نفس اليوم أو بعده.",eNoTime:"اختر وقت البداية ووقت النهاية.",eTime:"وقت النهاية قبل وقت البداية أو نفسه. اختر وقت نهاية بعده.",copied:"تم النسخ",copyFail:"حدّد النص فوق وانسخه.",
-  m:{hi:"طلب جديد — milkstudio",name:"الاسم",loc:"الموقع",date:"الوقت المناسب للتوصيل",items:"الطلب",sub:"المجموع (بدون التوصيل)",del:"التوصيل",delTxt:"أرسلوا لي سعر التوصيل لموقعي",notes:"ملاحظات",ref:"رقم الطلب"}}
+  m:{hi:"طلب جديد — milkstudio",disc:"العرض (كيسين بـ 89)",name:"الاسم",loc:"الموقع",date:"الوقت المناسب للتوصيل",items:"الطلب",sub:"المجموع (بدون التوصيل)",del:"التوصيل",delTxt:"أرسلوا لي سعر التوصيل لموقعي",notes:"ملاحظات",ref:"رقم الطلب"}}
 };
 
 let lang = "en", step = 1;
@@ -373,7 +380,12 @@ function windowText(){const f=$("dFrom").value,t=$("dTo").value||f;if(!f)return 
 
 function lines(){ // every chosen flavour × pack
   const out=[]; CONFIG.flavours.forEach(f=>CONFIG.packs.forEach(p=>{const q=qty[key(f.id,p.n)]; if(q) out.push({f,p,q,sum:q*p.price})})); return out; }
-function totals(){ const ls=lines(); return { bags:ls.reduce((a,l)=>a+l.q,0), pieces:ls.reduce((a,l)=>a+l.q*l.p.n,0), total:ls.reduce((a,l)=>a+l.sum,0) }; }
+function totals(){
+  const ls=lines(), bags=ls.reduce((a,l)=>a+l.q,0), gross=ls.reduce((a,l)=>a+l.sum,0);
+  const o=CONFIG.offer, unit=CONFIG.packs[0].price;
+  const disc = o ? Math.floor(bags/o.bags)*(o.bags*unit-o.price) : 0;
+  return { bags, pieces:ls.reduce((a,l)=>a+l.q*l.p.n,0), gross, disc, total:gross-disc };
+}
 
 function renderBags(){
   const t=T[lang];
@@ -405,11 +417,14 @@ function update(){
     + (win?`<small class="win-s">${esc(win)}</small>`:"");
   $("lines").innerHTML = !s.bags ? `<div class="empty">${t.empty}</div>` :
     lines().map(l=>`<div class="ln"><span>${l.q} × ${lang==="ar"?l.f.ar:l.f.en} · ${t.pack(l.p.n)}</span><span>${fmt(l.sum)}</span></div>`).join("")
-    + `<div class="ln mute"><span>${fmt(s.pieces)} ${t.pcs}</span><span>${fmt(s.total)}</span></div>`
+    + `<div class="ln mute"><span>${fmt(s.pieces)} ${t.pcs}</span><span>${fmt(s.gross)}</span></div>`
+    + (s.disc?`<div class="ln disc"><span>${t.disc}</span><span dir="ltr">−${fmt(s.disc)}</span></div>`:"")
     + `<div class="ln tbd"><span>${t.delivery}</span><span>${t.byDist}</span></div>`;
   $("tot").textContent=fmt(s.total); $("barT").textContent=fmt(s.total);
   $("barL").textContent = s.bags ? `${s.bags} ${s.bags===1?t.bag:t.bags} ${t.plusDel}` : t.empty;
   $("slipFoot").textContent=t.foot;
+  const ob=$("offer"); ob.hidden=!CONFIG.offer;
+  if(CONFIG.offer){ ob.classList.toggle("on",!!s.disc); $("offerS").textContent = s.disc ? t.offerOn(s.disc) : (s.bags%2 ? t.offer1 : t.offer0); }
 }
 
 function setErr(id,msg){const e=$(id);e.textContent=msg||"";e.hidden=!msg;const inp=$(id.replace("E",""));if(inp)inp.setAttribute("aria-invalid",msg?"true":"false")}
@@ -431,7 +446,9 @@ function message(){
   const m=T[lang].m, t=T[lang], s=totals();
   const L=[`*${m.hi}*`,`${m.ref}: ${ref}`,"",`${m.name}: ${$("name").value.trim()}`,`${m.loc}: ${$("loc").value.trim()}`,`${m.date}: ${windowText()}`,"",`*${m.items}*`];
   lines().forEach(l=>L.push(`• ${lang==="ar"?l.f.ar:l.f.en} — ${t.pack(l.p.n)} × ${l.q} — ${fmt(l.sum)} ${t.sar}`));
-  L.push("",`*${m.sub}: ${fmt(s.total)} ${t.sar}*`,`${m.del}: ${m.delTxt}`);
+  L.push("");
+  if(s.disc) L.push(`${m.disc}: −${fmt(s.disc)} ${t.sar}`);
+  L.push(`*${m.sub}: ${fmt(s.total)} ${t.sar}*`,`${m.del}: ${m.delTxt}`);
   if($("notes").value.trim()) L.push("",`${m.notes}: ${$("notes").value.trim()}`);
   return L.join("\n");
 }
