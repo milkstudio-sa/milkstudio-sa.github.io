@@ -26,3 +26,19 @@
 @font-face{font-family:"MkDigits";src:url("fonts/mikies-v2.woff2") format("woff2");font-display:swap;size-adjust:118%;unicode-range:U+0030-0039}
 html input,html textarea,html select{font-family:"IBM Plex Sans Arabic","Archivo",system-ui,sans-serif!important}
 html #cr{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace!important}
+
+/* delivery calendar (calendar.js) */
+.cal{background:var(--paper);border:1.5px solid var(--line);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:8px}
+.cal-h{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.cal-h b{font-family:var(--f-hand);font-weight:400;font-size:22px;line-height:1}
+.cal-nav{all:unset;cursor:pointer;width:34px;height:34px;border-radius:50%;border:1.5px solid var(--cocoa);display:grid;place-items:center;font-size:20px;line-height:1;color:var(--cocoa)}
+.cal-nav:disabled{opacity:.25;cursor:default}
+.cal-w,.cal-d{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
+.cal-w span{font-size:12px;color:var(--cocoa-soft);font-weight:600}
+.cal-d button{all:unset;box-sizing:border-box;cursor:pointer;height:38px;border-radius:10px;display:grid;place-items:center;font-family:var(--f-hand);font-size:19px;color:var(--cocoa)}
+.cal-d button:hover:not(:disabled):not(.end):not(.mid){background:var(--board)}
+.cal-d button:focus-visible{outline:2px solid var(--cocoa);outline-offset:1px}
+.cal-d button.off{color:var(--line);cursor:default;text-decoration:line-through;text-decoration-thickness:1px}
+.cal-d button.mid{background:var(--blue);border-radius:6px}
+.cal-d button.end{background:var(--cocoa);color:var(--board)}
+.cal-hint{margin:0;font-size:12.5px;color:var(--cocoa-soft);text-align:center}

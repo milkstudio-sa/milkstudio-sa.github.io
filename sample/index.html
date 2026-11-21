@@ -8,7 +8,7 @@
 <link rel="icon" href="../img/logo.png">
 <link rel="apple-touch-icon" href="../img/logo.png">
 <script src="../theme.js?v=4"></script>
-<link rel="stylesheet" href="../theme.css?v=9">
+<link rel="stylesheet" href="../theme.css?v=11">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
 <style>
@@ -254,9 +254,9 @@ html,body{overflow-x:clip;max-width:100%}
 
         <fieldset class="win">
           <legend data-i="winL">When suits you for delivery?</legend>
+          <div class="cal" id="cal"></div>
+          <input type="hidden" id="dFrom"><input type="hidden" id="dTo">
           <div class="two">
-            <div class="field"><label for="dFrom" data-i="dFromL">From date</label><input type="date" id="dFrom"></div>
-            <div class="field"><label for="dTo" data-i="dToL">To date</label><input type="date" id="dTo"></div>
             <div class="field"><label for="tFrom" data-i="tFromL">From</label><input type="time" id="tFrom" value="09:00" step="1800"></div>
             <div class="field"><label for="tTo" data-i="tToL">To</label><input type="time" id="tTo" value="13:00" step="1800"></div>
           </div>
@@ -319,6 +319,7 @@ html,body{overflow-x:clip;max-width:100%}
 
 <script src="../links.js?v=7"></script>
 <script src="../track.js?v=5"></script>
+<script src="../calendar.js?v=2"></script>
 <script>
 const WA = (window.SITE && window.SITE.whatsapp) || "9665XXXXXXXX";
 const SAMPLE = [
@@ -362,6 +363,7 @@ const total=SAMPLE.reduce((a,s)=>a+s.n,0);
 
 const tomorrow=(()=>{const d=new Date();d.setDate(d.getDate()+1);const p=n=>String(n).padStart(2,"0");return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}`})();
 $("dFrom").min=tomorrow; $("dTo").min=tomorrow;
+window.msCal = msCalendar($("cal"), { from:$("dFrom"), to:$("dTo"), min:tomorrow, lang:()=>lang });
 $("dFrom").addEventListener("change",()=>{const f=$("dFrom").value;$("dTo").min=f||tomorrow;if(f&&(!$("dTo").value||$("dTo").value<f))$("dTo").value=f;update()});
 ["dTo","tFrom","tTo"].forEach(id=>$(id).addEventListener("change",update));
 
@@ -430,6 +432,7 @@ function setLang(l){
   document.querySelectorAll("[data-i]").forEach(el=>{if(typeof t[el.dataset.i]==="string")el.textContent=t[el.dataset.i]});
   document.querySelectorAll("[data-i-ph]").forEach(el=>el.placeholder=t[el.dataset.iPh]);
   window.msTheme&&msTheme.refresh();
+  window.msCal&&msCal.render();
   $("l-ar").setAttribute("aria-pressed",l==="ar"); $("l-en").setAttribute("aria-pressed",l==="en");
   ["bizE","crE","locE","dateE"].forEach(id=>$(id).hidden=true);
   update(); if(step===2) go(2);
