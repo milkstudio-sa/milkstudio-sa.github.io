@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#E9E7DA">
-<title>milkstudio · Wholesale order</title>
+<title>milkstudio · Order</title>
 <link rel="icon" href="../img/logo.png">
 <link rel="apple-touch-icon" href="../img/logo.png">
 <script src="../theme.js?v=4"></script>
@@ -186,6 +186,17 @@ html,body{overflow-x:clip;max-width:100%}
 fieldset.win legend{font-size:19px}
 .box h3{font-size:19px} .box .pc{font-size:17px}
 </style>
+<style>
+/* personal order: pack rows inside each flavour card */
+.bag.retail{grid-template-columns:auto minmax(0,1fr)}
+.packs{grid-column:1/-1;display:flex;flex-direction:column;gap:10px;border-top:1px dashed var(--line);padding-top:12px}
+.pk{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.pk .lbl{font-weight:600;font-size:14.5px}
+.pk .lbl>span{display:block;font-weight:400;font-size:13px;color:var(--cocoa-soft)}
+.qty output{min-width:40px}
+.ln.tbd span:last-child{font-family:"IBM Plex Sans Arabic","Archivo",system-ui,sans-serif;font-size:13px;color:var(--cocoa-soft)}
+.total small.plus{display:block;font-size:12px;color:var(--cocoa-soft);text-align:end;margin-top:4px}
+</style>
 </head>
 <body>
 
@@ -205,7 +216,7 @@ fieldset.win legend{font-size:19px}
   </header>
 
   <ol class="steps" id="steps">
-    <li data-i="s1">Business</li><li data-i="s2">Order</li><li data-i="s3">Send</li>
+    <li data-i="s1">You</li><li data-i="s2">Order</li><li data-i="s3">Send</li>
   </ol>
 
   <div class="grid">
@@ -214,28 +225,17 @@ fieldset.win legend{font-size:19px}
       <!-- STEP 1 -->
       <section class="panel show" data-step="1">
         <h1 data-i="h1">Who's ordering?</h1>
-        <p class="lede" data-i="l1">We sell wholesale to registered cafés and stores. Your commercial registration lets us confirm the business before the first delivery.</p>
+        <p class="lede" data-i="l1">Frozen cookie dough you bake at home, whenever you like.</p>
         <div class="field">
-          <label for="biz" data-i="bizL">Business name</label>
-          <input id="biz" autocomplete="organization" placeholder="Bloom Coffee">
-          <div class="err" id="bizE" hidden></div>
+          <label for="name" data-i="nameL">Your name</label>
+          <input id="name" autocomplete="name">
+          <div class="err" id="nameE" hidden></div>
         </div>
         <div class="field">
-          <label for="cr" data-i="crL">Commercial registration (CR) number</label>
-          <input id="cr" inputmode="numeric" maxlength="10" placeholder="1010XXXXXX" autocomplete="off">
-          <div class="hint" data-i="crH">10 digits, as on your CR certificate.</div>
-          <div class="err" id="crE" hidden></div>
-        </div>
-        <div class="two">
-          <div class="field">
-            <label for="contact" data-i="contactL">Contact name</label>
-            <input id="contact" autocomplete="name">
-          </div>
-          <div class="field">
-            <label for="district" data-i="distL">District</label>
-            <input id="district" placeholder="Al Malqa">
-            <div class="err" id="distE" hidden></div>
-          </div>
+          <label for="loc" data-i="locL">Location</label>
+          <input id="loc" data-i-ph="locP" placeholder="Google Maps link, or the district">
+          <div class="hint" data-i="locH">A Google Maps link lets us work out the delivery fee exactly.</div>
+          <div class="err" id="locE" hidden></div>
         </div>
         <div class="nav"><span></span><button type="button" class="btn pri" id="to2" data-i="next" data-ev="Next (step 1)">Continue to order</button></div>
       </section>
@@ -243,26 +243,22 @@ fieldset.win legend{font-size:19px}
       <!-- STEP 2 -->
       <section class="panel" data-step="2">
         <h1 data-i="h2">Build your order</h1>
-        <p class="lede" data-i="l2">Each bag holds 24 pieces of frozen cookie dough (45 g each), vacuum sealed. Bake straight from the freezer at 180°C.</p>
+        <p class="lede" data-i="l2">Frozen cookie dough in a vacuum-sealed bag, 45 g a piece. Bake straight from the freezer.</p>
         <div class="bags" id="bags"></div>
-        <div class="meter" id="meter">
-          <div class="row"><span id="meterT"></span><span id="meterN" class="num"></span></div>
-          <div class="dots" id="dots"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-        </div>
         <fieldset class="win">
           <legend data-i="winL">Best time for delivery</legend>
           <div class="two">
             <div class="field"><label for="dFrom" data-i="dFromL">From date</label><input type="date" id="dFrom"></div>
             <div class="field"><label for="dTo" data-i="dToL">To date</label><input type="date" id="dTo"></div>
-            <div class="field"><label for="tFrom" data-i="tFromL">From</label><input type="time" id="tFrom" value="09:00" step="1800"></div>
-            <div class="field"><label for="tTo" data-i="tToL">To</label><input type="time" id="tTo" value="13:00" step="1800"></div>
+            <div class="field"><label for="tFrom" data-i="tFromL">From</label><input type="time" id="tFrom" value="16:00" step="1800"></div>
+            <div class="field"><label for="tTo" data-i="tToL">To</label><input type="time" id="tTo" value="21:00" step="1800"></div>
           </div>
           <div class="hint" data-i="winH">Pick a range and we'll deliver within it.</div>
           <div class="err" id="dateE" hidden></div>
         </fieldset>
         <div class="field">
           <label for="notes" data-i="notesL">Notes (optional)</label>
-          <textarea id="notes" rows="2" data-i-ph="notesP" placeholder="Delivery time window, gate number, anything we should know"></textarea>
+          <textarea id="notes" rows="2" data-i-ph="notesP" placeholder="Building, floor, anything we should know"></textarea>
         </div>
         <div class="err" id="bagE" hidden></div>
         <div class="nav">
@@ -274,7 +270,7 @@ fieldset.win legend{font-size:19px}
       <!-- STEP 3 -->
       <section class="panel" data-step="3">
         <h1 data-i="h3">Send it on WhatsApp</h1>
-        <p class="lede" data-i="l3">This opens WhatsApp with your order typed out. Press send there and we'll confirm the delivery and send our bank details.</p>
+        <p class="lede" data-i="l3">This opens WhatsApp with your order typed out. Press send there and we'll reply with the delivery fee and our bank details.</p>
         <div class="review">
           <div class="msg" id="msg"></div>
           <div class="copyrow">
@@ -299,7 +295,7 @@ fieldset.win legend{font-size:19px}
       <div class="t"><span data-i="slipT">Order slip</span><span><span data-i="refL">Order no.</span> <span id="ref" class="num"></span></span></div>
       <div class="biz" id="slipBiz"></div>
       <div class="lines" id="lines"></div>
-      <div class="total"><span data-i="total">Total</span><span><b id="tot">0</b> <small data-i="sar">SAR</small></span></div>
+      <div class="total"><span data-i="total">Total</span><span><b id="tot">0</b> <small data-i="sar">SAR</small><small class="plus" data-i="plusDel">+ delivery</small></span></div>
       <div class="foot" id="slipFoot"></div>
     </aside>
   </div>
@@ -307,16 +303,13 @@ fieldset.win legend{font-size:19px}
 
 <div class="bar" aria-hidden="true"><span id="barL"></span><span><b id="barT">0</b> <span data-i="sar">SAR</span></span></div>
 
-<script src="../links.js?v=6"></script>
-<script src="../track.js?v=4"></script>
+<script src="../links.js?v=7"></script>
+<script src="../track.js?v=5"></script>
 <script>
 /* ======= EDIT THESE ======= */
 const CONFIG = {
   whatsapp: (window.SITE && window.SITE.whatsapp) || "9665XXXXXXXX",   // set in ../links.js
-  piecesPerBag: 24,
-  pricePerPiece: 6,              // SAR → 144 per bag
-  freeDeliveryBags: 6,
-  deliveryFee: 35,               // SAR, charged under the free-delivery minimum
+  packs: [ { n:6, price:49 } ],                                                         // SAR, delivery not included
   flavours: [
     { id:"classic", img:"cookie-classic.webp", en:"Classic", ar:"كلاسيك",
       enD:"Classic brown butter dough, with a mix of dark and milk Belcolade chocolate", arD:"عجينة كلاسيكية بالزبدة البنية، ومكس شوكولاتة بيلكولاد داكنة وبالحليب" },
@@ -327,141 +320,121 @@ const CONFIG = {
 /* ========================== */
 
 const T = {
- en:{tag:"frozen cookie dough",s1:"Business",s2:"Order",s3:"Send",h1:"Who's ordering?",
-  l1:"We sell wholesale to registered cafés and stores. Your commercial registration lets us confirm the business before the first delivery.",
-  bizL:"Business name",crL:"Commercial registration (CR) number",crH:"10 digits, as on your CR certificate.",contactL:"Contact name",distL:"District",
-  next:"Continue to order",h2:"Build your order",l2:"Each bag holds 24 pieces of frozen cookie dough (45 g each), vacuum sealed. Bake straight from the freezer at 180°C.",
-  winL:"Best time for delivery",dFromL:"From date",dToL:"To date",tFromL:"From",tToL:"To",winH:"Pick a range and we'll deliver within it.",notesL:"Notes (optional)",notesP:"Gate number, who receives it, anything we should know",
-  back:"Back",review:"Review order",h3:"Send it on WhatsApp",l3:"This opens WhatsApp with your order typed out. Press send there and we'll confirm the delivery and send a payment link.",
+ en:{tag:"frozen cookie dough",s1:"You",s2:"Order",s3:"Send",h1:"Who's ordering?",
+  l1:"Frozen cookie dough you bake at home, whenever you like.",
+  nameL:"Your name",locL:"Location",locP:"Google Maps link, or the district",locH:"A Google Maps link lets us work out the delivery fee exactly.",
+  next:"Continue to order",h2:"Build your order",l2:"Frozen cookie dough in a vacuum-sealed bag, 45 g a piece. Bake straight from the freezer.",
+  winL:"Best time for delivery",dFromL:"From date",dToL:"To date",tFromL:"From",tToL:"To",winH:"Pick a range and we'll deliver within it.",
+  notesL:"Notes (optional)",notesP:"Building, floor, anything we should know",
+  back:"Back",review:"Review order",h3:"Send it on WhatsApp",l3:"This opens WhatsApp with your order typed out. Press send there and we'll reply with the delivery fee and our bank details.",
   noOpen:"WhatsApp didn't open?",copy:"Copy the message",sendTo:"and send it to",edit:"Edit order",sendWa:"Send order on WhatsApp",
-  slipT:"Order slip",refL:"Order no.",total:"Total",sar:"SAR",bag:"bag",bags:"bags",pcs:"pieces",perBag:"per bag",
-  emptyBiz:"Your business name shows here",empty:"Add bags to see your total.",delivery:"Delivery",free:"Free",
-  meterGo:n=>`${n} more ${n===1?"bag":"bags"} for free delivery`,meterOk:"Free delivery unlocked",
-  foot:"Payment by bank transfer once we confirm your order.",
-  eBiz:"Enter the business name.",eCr:"CR number should be exactly 10 digits.",eDist:"Enter the district for delivery.",
+  slipT:"Order slip",refL:"Order no.",total:"Total",sar:"SAR",plusDel:"+ delivery",pcs:"pieces",pack:n=>`Bag of ${n}`,bag:"bag",bags:"bags",
+  emptyName:"Your name shows here",empty:"Add a bag to see your total.",delivery:"Delivery",byDist:"Based on distance",
+  foot:"We'll send the delivery fee on WhatsApp before you pay. Payment by bank transfer.",
+  eName:"Enter your name.",eLoc:"Add a Google Maps link or your district.",
   eBag:"Add at least one bag.",eNoStart:"Pick the first day that suits you for delivery.",eTooSoon:"The earliest delivery is tomorrow. Pick tomorrow or a later date.",eEndBefore:"The end date is before the start date. Pick the same day or a later one.",eNoTime:"Pick both a start time and an end time.",eTime:"The end time is before or the same as the start time. Pick a later end time.",copied:"Copied",copyFail:"Select the text above and copy it.",
-  m:{hi:"New wholesale order — milkstudio",biz:"Business",cr:"CR",contact:"Contact",district:"District",date:"Best time for delivery",items:"Order",
-     sub:"Subtotal",del:"Delivery",tot:"Total",notes:"Notes",ref:"Order no."}},
- ar:{tag:"عجينة كوكيز مجمّدة",s1:"المنشأة",s2:"الطلب",s3:"الإرسال",h1:"مين يطلب؟",
-  l1:"نبيع بالجملة للمقاهي والمتاجر المسجّلة. رقم السجل التجاري يساعدنا نتأكد من المنشأة قبل أول توصيل.",
-  bizL:"اسم المنشأة",crL:"رقم السجل التجاري",crH:"١٠ أرقام، كما في شهادة السجل.",contactL:"اسم المسؤول",distL:"الحي",
-  next:"التالي: الطلب",h2:"جهّز طلبك",l2:"كل كيس فيه ٢٤ حبة عجينة كوكيز مجمّدة (٤٥ جم للحبة)، مفرّغ من الهواء. تنخبز من الفريزر مباشرة على ١٨٠°م.",
-  winL:"الوقت المناسب للتوصيل",dFromL:"من تاريخ",dToL:"إلى تاريخ",tFromL:"من الساعة",tToL:"إلى الساعة",winH:"اختر فترة ونوصّل لك خلالها.",notesL:"ملاحظات (اختياري)",notesP:"رقم البوابة، مين يستلم، أي شي نحتاج نعرفه",
-  back:"رجوع",review:"راجع الطلب",h3:"أرسله على واتساب",l3:"راح يفتح واتساب والطلب مكتوب. اضغط إرسال، ونأكد لك التوصيل ونرسل لك بيانات التحويل.",
+  m:{hi:"New order — milkstudio",name:"Name",loc:"Location",date:"Best time for delivery",items:"Order",sub:"Total (without delivery)",del:"Delivery",delTxt:"please send the fee for my location",notes:"Notes",ref:"Order no."}},
+ ar:{tag:"عجينة كوكيز مجمّدة",s1:"بياناتك",s2:"الطلب",s3:"الإرسال",h1:"مين يطلب؟",
+  l1:"عجينة كوكيز مجمّدة تخبزها في بيتك، متى ما بغيت.",
+  nameL:"اسمك",locL:"الموقع",locP:"رابط قوقل ماب، أو اسم الحي",locH:"رابط قوقل ماب يساعدنا نحسب التوصيل بدقة.",
+  next:"التالي: الطلب",h2:"جهّز طلبك",l2:"عجينة كوكيز مجمّدة في كيس مفرّغ من الهواء، ٤٥ جم للحبة. تنخبز من الفريزر مباشرة.",
+  winL:"الوقت المناسب للتوصيل",dFromL:"من تاريخ",dToL:"إلى تاريخ",tFromL:"من الساعة",tToL:"إلى الساعة",winH:"اختر فترة ونوصّل لك خلالها.",
+  notesL:"ملاحظات (اختياري)",notesP:"رقم العمارة، الدور، أي شي نحتاج نعرفه",
+  back:"رجوع",review:"راجع الطلب",h3:"أرسله على واتساب",l3:"راح يفتح واتساب والطلب مكتوب. اضغط إرسال، ونرد عليك بسعر التوصيل وبيانات التحويل.",
   noOpen:"ما فتح واتساب؟",copy:"انسخ الرسالة",sendTo:"وأرسلها على",edit:"عدّل الطلب",sendWa:"أرسل الطلب على واتساب",
-  slipT:"فاتورة الطلب",refL:"رقم الطلب",total:"المجموع",sar:"ر.س",bag:"كيس",bags:"أكياس",pcs:"حبة",perBag:"للكيس",
-  emptyBiz:"اسم منشأتك يظهر هنا",empty:"أضف أكياس عشان يظهر المجموع.",delivery:"التوصيل",free:"مجاني",
-  meterGo:n=>`باقي ${n} ${n===1?"كيس":"أكياس"} للتوصيل المجاني`,meterOk:"التوصيل مجاني",
-  foot:"الدفع بتحويل بنكي بعد ما نأكد طلبك.",
-  eBiz:"اكتب اسم المنشأة.",eCr:"رقم السجل لازم يكون ١٠ أرقام.",eDist:"اكتب الحي للتوصيل.",
+  slipT:"فاتورة الطلب",refL:"رقم الطلب",total:"المجموع",sar:"ر.س",plusDel:"+ التوصيل",pcs:"حبة",pack:n=>`كيس ${n} حبات`.replace("12 حبات","12 حبة"),bag:"كيس",bags:"أكياس",
+  emptyName:"اسمك يظهر هنا",empty:"أضف كيس عشان يظهر المجموع.",delivery:"التوصيل",byDist:"حسب المسافة",
+  foot:"نرسل لك سعر التوصيل على الواتساب قبل الدفع. الدفع بتحويل بنكي.",
+  eName:"اكتب اسمك.",eLoc:"أضف رابط قوقل ماب أو اسم الحي.",
   eBag:"أضف كيس واحد على الأقل.",eNoStart:"اختر أول يوم يناسبك للتوصيل.",eTooSoon:"أقرب توصيل بكرة. اختر بكرة أو تاريخ بعده.",eEndBefore:"تاريخ النهاية قبل تاريخ البداية. اختر نفس اليوم أو بعده.",eNoTime:"اختر وقت البداية ووقت النهاية.",eTime:"وقت النهاية قبل وقت البداية أو نفسه. اختر وقت نهاية بعده.",copied:"تم النسخ",copyFail:"حدّد النص فوق وانسخه.",
-  m:{hi:"طلب جملة جديد — milkstudio",biz:"المنشأة",cr:"السجل التجاري",contact:"المسؤول",district:"الحي",date:"الوقت المناسب للتوصيل",items:"الطلب",
-     sub:"المجموع الفرعي",del:"التوصيل",tot:"الإجمالي",notes:"ملاحظات",ref:"رقم الطلب"}}
+  m:{hi:"طلب جديد — milkstudio",name:"الاسم",loc:"الموقع",date:"الوقت المناسب للتوصيل",items:"الطلب",sub:"المجموع (بدون التوصيل)",del:"التوصيل",delTxt:"أرسلوا لي سعر التوصيل لموقعي",notes:"ملاحظات",ref:"رقم الطلب"}}
 };
 
 let lang = "en", step = 1;
-const qty = Object.fromEntries(CONFIG.flavours.map(f=>[f.id,0]));
+const key = (f,n) => `${f}-${n}`;
+const qty = {}; CONFIG.flavours.forEach(f=>CONFIG.packs.forEach(p=>qty[key(f.id,p.n)]=0));
 const $ = id => document.getElementById(id);
-const bagPrice = CONFIG.piecesPerBag * CONFIG.pricePerPiece;
 const ref = (()=>{const d=new Date();const p=n=>String(n).padStart(2,"0");return `MS-${String(d.getFullYear()).slice(2)}${p(d.getMonth()+1)}${p(d.getDate())}-${Math.random().toString(36).slice(2,6).toUpperCase()}`})();
 const fmt = n => n.toLocaleString("en-US");
+const esc = s => s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
-// earliest date = tomorrow (local time)
 const tomorrow=(()=>{const d=new Date();d.setDate(d.getDate()+1);const p=n=>String(n).padStart(2,"0");return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}`})();
 $("dFrom").min=tomorrow; $("dTo").min=tomorrow;
 $("dFrom").addEventListener("change",()=>{const f=$("dFrom").value;$("dTo").min=f||tomorrow;if(f&&(!$("dTo").value||$("dTo").value<f))$("dTo").value=f;update()});
 ["dTo","tFrom","tTo"].forEach(id=>$(id).addEventListener("change",update));
-
 function fmtDate(iso){const loc=lang==="ar"?"ar-SA-u-ca-gregory-nu-latn":"en-GB";
   return new Date(iso+"T12:00:00").toLocaleDateString(loc,{weekday:"long",day:"numeric",month:"long"})}
 function fmtTime(hm){if(!hm)return "";let [h,m]=hm.split(":").map(Number);const pm=h>=12;h=h%12||12;
   const suf=lang==="ar"?(pm?"م":"ص"):(pm?"pm":"am");return `${h}:${String(m).padStart(2,"0")} ${suf}`}
 function windowText(){const f=$("dFrom").value,t=$("dTo").value||f;if(!f)return "";
   const d=f===t?fmtDate(f):`${fmtDate(f)} – ${fmtDate(t)}`;
-  const tm=($("tFrom").value&&$("tTo").value)?`، ${fmtTime($("tFrom").value)} – ${fmtTime($("tTo").value)}`:"";
-  return d+(lang==="ar"?tm:tm.replace("، ",", "))}
+  const tm=($("tFrom").value&&$("tTo").value)?`${lang==="ar"?"، ":", "}${fmtTime($("tFrom").value)} – ${fmtTime($("tTo").value)}`:"";
+  return d+tm}
+
+function lines(){ // every chosen flavour × pack
+  const out=[]; CONFIG.flavours.forEach(f=>CONFIG.packs.forEach(p=>{const q=qty[key(f.id,p.n)]; if(q) out.push({f,p,q,sum:q*p.price})})); return out; }
+function totals(){ const ls=lines(); return { bags:ls.reduce((a,l)=>a+l.q,0), pieces:ls.reduce((a,l)=>a+l.q*l.p.n,0), total:ls.reduce((a,l)=>a+l.sum,0) }; }
 
 function renderBags(){
   const t=T[lang];
-  $("bags").innerHTML = CONFIG.flavours.map(f=>`
-    <div class="bag ${qty[f.id]?"has":""}">
+  $("bags").innerHTML = CONFIG.flavours.map(f=>{
+    const any=CONFIG.packs.some(p=>qty[key(f.id,p.n)]);
+    return `<div class="bag retail ${any?"has":""}">
       <img class="swatch" src="../img/${f.img}" alt="" width="52" height="52">
-      <div style="min-width:0"><h3>${lang==="ar"?f.ar:f.en}</h3><p>${lang==="ar"?f.arD:f.enD}</p>
-        <p><span class="num">${fmt(bagPrice)}</span> ${t.sar} ${t.perBag} · <span class="num">${CONFIG.pricePerPiece}</span> ${t.sar}/${lang==="ar"?"حبة":"piece"}</p></div>
-      <div class="qty">
-        <button type="button" data-f="${f.id}" data-d="-1" aria-label="−" ${qty[f.id]?"":"disabled"}>−</button>
-        <output aria-live="polite"><b>${qty[f.id]}</b>${qty[f.id]===1?t.bag:t.bags}</output>
-        <button type="button" data-f="${f.id}" data-d="1" aria-label="+">+</button>
+      <div style="min-width:0"><h3>${lang==="ar"?f.ar:f.en}</h3><p>${lang==="ar"?f.arD:f.enD}</p></div>
+      <div class="packs">${CONFIG.packs.map(p=>{const k=key(f.id,p.n),q=qty[k];return `
+        <div class="pk"><div class="lbl">${t.pack(p.n)}<span><span class="num">${p.price}</span> ${t.sar}</span></div>
+          <div class="qty">
+            <button type="button" data-k="${k}" data-d="-1" aria-label="−" ${q?"":"disabled"}>−</button>
+            <output aria-live="polite"><b>${q}</b></output>
+            <button type="button" data-k="${k}" data-d="1" aria-label="+">+</button>
+          </div></div>`}).join("")}
       </div>
-    </div>`).join("");
+    </div>`}).join("");
 }
 $("bags").addEventListener("click",e=>{
-  const b=e.target.closest("button[data-f]"); if(!b) return;
-  qty[b.dataset.f]=Math.max(0,qty[b.dataset.f]+Number(b.dataset.d)); $("bagE").hidden=true;
+  const b=e.target.closest("button[data-k]"); if(!b) return;
+  qty[b.dataset.k]=Math.max(0,qty[b.dataset.k]+Number(b.dataset.d)); $("bagE").hidden=true;
   renderBags(); update(); tracker.soon();
 });
 
-function totals(){
-  const bags=Object.values(qty).reduce((a,b)=>a+b,0);
-  const sub=bags*bagPrice;
-  const del= bags===0?0:(bags>=CONFIG.freeDeliveryBags?0:CONFIG.deliveryFee);
-  return {bags,sub,del,total:sub+del};
-}
-
 function update(){
-  const t=T[lang], s=totals();
-  const biz=$("biz").value.trim(), cr=$("cr").value.trim();
-  const win=windowText();
-  $("slipBiz").innerHTML = (biz ? `${esc(biz)}${cr?`<small>CR ${esc(cr)}</small>`:""}` : `<span class="empty">${t.emptyBiz}</span>`)
+  const t=T[lang], s=totals(), name=$("name").value.trim(), loc=$("loc").value.trim(), win=windowText();
+  $("slipBiz").innerHTML = (name?esc(name):`<span class="empty">${t.emptyName}</span>`)
+    + (loc?`<small class="win-s">${esc(loc.length>40?loc.slice(0,40)+"…":loc)}</small>`:"")
     + (win?`<small class="win-s">${esc(win)}</small>`:"");
-  $("lines").innerHTML = s.bags===0 ? `<div class="empty">${t.empty}</div>` :
-    CONFIG.flavours.filter(f=>qty[f.id]).map(f=>`<div class="ln"><span>${qty[f.id]} × ${lang==="ar"?f.ar:f.en}</span><span>${fmt(qty[f.id]*bagPrice)}</span></div>`).join("")
-    + `<div class="ln mute"><span>${fmt(s.bags*CONFIG.piecesPerBag)} ${t.pcs}</span><span>${fmt(s.sub)}</span></div>`
-    + `<div class="ln ${s.del?"":"free"}"><span>${t.delivery}</span><span>${s.del?fmt(s.del):t.free}</span></div>`;
+  $("lines").innerHTML = !s.bags ? `<div class="empty">${t.empty}</div>` :
+    lines().map(l=>`<div class="ln"><span>${l.q} × ${lang==="ar"?l.f.ar:l.f.en} · ${t.pack(l.p.n)}</span><span>${fmt(l.sum)}</span></div>`).join("")
+    + `<div class="ln mute"><span>${fmt(s.pieces)} ${t.pcs}</span><span>${fmt(s.total)}</span></div>`
+    + `<div class="ln tbd"><span>${t.delivery}</span><span>${t.byDist}</span></div>`;
   $("tot").textContent=fmt(s.total); $("barT").textContent=fmt(s.total);
-  $("barL").textContent = s.bags ? `${s.bags} ${s.bags===1?t.bag:t.bags}` : t.empty;
-  const left=Math.max(0,CONFIG.freeDeliveryBags-s.bags);
-  $("meterT").textContent = left ? t.meterGo(left) : t.meterOk;
-  $("meterN").textContent = `${Math.min(s.bags,CONFIG.freeDeliveryBags)}/${CONFIG.freeDeliveryBags}`;
-  [...$("dots").children].forEach((d,i)=>d.classList.toggle("f",i<s.bags));
+  $("barL").textContent = s.bags ? `${s.bags} ${s.bags===1?t.bag:t.bags} ${t.plusDel}` : t.empty;
   $("slipFoot").textContent=t.foot;
 }
-const esc = s => s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
 function setErr(id,msg){const e=$(id);e.textContent=msg||"";e.hidden=!msg;const inp=$(id.replace("E",""));if(inp)inp.setAttribute("aria-invalid",msg?"true":"false")}
-
 function valid1(){
   const t=T[lang]; let ok=true;
-  const biz=$("biz").value.trim(); setErr("bizE",biz?"":t.eBiz); ok=ok&&!!biz;
-  const cr=$("cr").value.trim(); const crOk=/^\d{10}$/.test(cr); setErr("crE",crOk?"":t.eCr); ok=ok&&crOk;
-  const d=$("district").value.trim(); setErr("distE",d?"":t.eDist); ok=ok&&!!d;
+  const n=$("name").value.trim(); setErr("nameE",n?"":t.eName); ok=ok&&!!n;
+  const l=$("loc").value.trim(); setErr("locE",l?"":t.eLoc); ok=ok&&!!l;
   return ok;
 }
 function valid2(){
   const t=T[lang]; let ok=true;
   if(!totals().bags){$("bagE").textContent=t.eBag;$("bagE").hidden=false;ok=false}
   const f=$("dFrom").value, to=$("dTo").value||f, tf=$("tFrom").value, tt=$("tTo").value;
-  const msg = !f ? t.eNoStart
-    : f<tomorrow ? t.eTooSoon
-    : to<f ? t.eEndBefore
-    : (!tf||!tt) ? t.eNoTime
-    : tt<=tf ? t.eTime : "";
+  const msg = !f ? t.eNoStart : f<tomorrow ? t.eTooSoon : to<f ? t.eEndBefore : (!tf||!tt) ? t.eNoTime : tt<=tf ? t.eTime : "";
   const e=$("dateE"); e.textContent=msg; e.hidden=!msg; ok=ok&&!msg;
   return ok;
 }
-
 function message(){
-  const m=T[lang].m, s=totals(), t=T[lang];
-  const L=[`*${m.hi}*`,`${m.ref}: ${ref}`,"",
-    `${m.biz}: ${$("biz").value.trim()}`,`${m.cr}: ${$("cr").value.trim()}`];
-  if($("contact").value.trim()) L.push(`${m.contact}: ${$("contact").value.trim()}`);
-  L.push(`${m.district}: ${$("district").value.trim()}`,`${m.date}: ${windowText()}`,"",`*${m.items}*`);
-  CONFIG.flavours.filter(f=>qty[f.id]).forEach(f=>L.push(`• ${lang==="ar"?f.ar:f.en} × ${qty[f.id]} ${qty[f.id]===1?t.bag:t.bags} (${qty[f.id]*CONFIG.piecesPerBag} ${t.pcs}) — ${fmt(qty[f.id]*bagPrice)} ${t.sar}`));
-  L.push("",`${m.sub}: ${fmt(s.sub)} ${t.sar}`,`${m.del}: ${s.del?fmt(s.del)+" "+t.sar:t.free}`,`*${m.tot}: ${fmt(s.total)} ${t.sar}*`);
+  const m=T[lang].m, t=T[lang], s=totals();
+  const L=[`*${m.hi}*`,`${m.ref}: ${ref}`,"",`${m.name}: ${$("name").value.trim()}`,`${m.loc}: ${$("loc").value.trim()}`,`${m.date}: ${windowText()}`,"",`*${m.items}*`];
+  lines().forEach(l=>L.push(`• ${lang==="ar"?l.f.ar:l.f.en} — ${t.pack(l.p.n)} × ${l.q} — ${fmt(l.sum)} ${t.sar}`));
+  L.push("",`*${m.sub}: ${fmt(s.total)} ${t.sar}*`,`${m.del}: ${m.delTxt}`);
   if($("notes").value.trim()) L.push("",`${m.notes}: ${$("notes").value.trim()}`);
   return L.join("\n");
 }
-
 function go(n){
   step=n; tracker.step(n===1?"started":n===2?"order":"review");
   document.querySelectorAll("[data-step]").forEach(s=>s.classList.toggle("show",+s.dataset.step===n));
@@ -474,15 +447,13 @@ $("to3").onclick=()=>valid2()&&go(3);
 $("back1").onclick=()=>go(1);
 $("back2").onclick=()=>go(2);
 $("form").addEventListener("submit",e=>e.preventDefault());
-$("cr").addEventListener("input",e=>{e.target.value=e.target.value.replace(/[٠-٩]/g,d=>"٠١٢٣٤٥٦٧٨٩".indexOf(d)).replace(/\D/g,"").slice(0,10);update()});
-["biz","district","contact"].forEach(id=>$(id).addEventListener("input",update));
+["name","loc"].forEach(id=>$(id).addEventListener("input",update));
 $("copy").onclick=()=>{
   const txt=$("msg").textContent;
   const ok=()=>{$("copied").textContent=T[lang].copied};
   const fail=()=>{const r=document.createRange();r.selectNodeContents($("msg"));const s=getSelection();s.removeAllRanges();s.addRange(r);$("copied").textContent=T[lang].copyFail};
   try{navigator.clipboard.writeText(txt).then(ok,fail)}catch(e){fail()}
 };
-
 function setLang(l){
   lang=l; const t=T[l];
   document.documentElement.lang=l; document.documentElement.dir=l==="ar"?"rtl":"ltr";
@@ -490,14 +461,13 @@ function setLang(l){
   document.querySelectorAll("[data-i-ph]").forEach(el=>el.placeholder=t[el.dataset.iPh]);
   window.msTheme&&msTheme.refresh();
   $("l-ar").setAttribute("aria-pressed",l==="ar"); $("l-en").setAttribute("aria-pressed",l==="en");
-  ["bizE","crE","distE","dateE","bagE"].forEach(id=>$(id).hidden=true);
+  ["nameE","locE","dateE","bagE"].forEach(id=>$(id).hidden=true);
   renderBags(); update(); if(step===3) go(3);
   try{localStorage.setItem("ms-lang",l)}catch(e){}
 }
-const tracker = msTrack("wholesale", () => { const s = totals(); return {
-  lang, biz:$("biz").value.trim(), cr:$("cr").value.trim(), contact:$("contact").value.trim(),
-  location:$("district").value.trim(), window:windowText(),
-  items:CONFIG.flavours.filter(f=>qty[f.id]).map(f=>`${f.ar} ×${qty[f.id]}`).join("، "),
+const tracker = msTrack("retail", () => { const s = totals(); return {
+  lang, biz:$("name").value.trim(), cr:"", contact:"", location:$("loc").value.trim(), window:windowText(),
+  items:lines().map(l=>`${l.f.ar} ${l.p.n} حبات ×${l.q}`).join("، "),
   total:s.bags?s.total:"", ref, notes:$("notes").value.trim() }; });
 $("wa").addEventListener("click",()=>tracker.step("whatsapp"));
 $("l-ar").onclick=()=>setLang("ar"); $("l-en").onclick=()=>setLang("en");

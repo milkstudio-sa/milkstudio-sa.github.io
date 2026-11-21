@@ -14,9 +14,8 @@ The QR code points to `https://milkstudio-sa.github.io/`. That address never cha
 
 - `/` is the link page and baking instructions
 - Light/dark mode: the cookie button at the top. Images are in `img/`.
-- `/retail/` is the personal (individual) order form: 6 pieces 49 SAR, delivery quoted on WhatsApp
 - `/sample/` is the free sample request for cafés
-- `/order/` is the wholesale order form (prices and flavours are in the `CONFIG` block near the bottom of `order/index.html`)
+- `/order/` is the order form for individuals: 6 pieces 49 SAR, delivery quoted on WhatsApp (`/retail/` redirects here)
 
 ## Saving form answers
 

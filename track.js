@@ -80,7 +80,7 @@
     visitor = "v-" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
     try { localStorage.setItem("ms-visitor-id", visitor); } catch (e) {}
   }
-  var page = /\/order\//.test(location.pathname) ? "Wholesale order" : /\/retail\//.test(location.pathname) ? "Personal order" : /\/sample\//.test(location.pathname) ? "Free sample" : "Home";
+  var page = /\/(order|retail)\//.test(location.pathname) ? "Order" : /\/sample\//.test(location.pathname) ? "Free sample" : "Home";
 
   function send(event, button) {
     if (!ENDPOINT) return;

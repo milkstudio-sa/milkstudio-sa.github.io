@@ -16,13 +16,11 @@ window.SITE = {
   tiktok: "milkstudio.sa",
 
   // The buttons, top to bottom. Add, remove or reorder freely.
-  //  - href:  any web address, or "order/" for the wholesale order form
+  //  - href:  any web address, or "order/" for the order form
   //  - whatsapp: opens WhatsApp with this message already typed ("" for an empty chat)
   //  - main: true makes it the big dark button
   links: [
-    { ar: "طلب للأفراد", en: "Personal order", href: "retail/", main: true },
-
-    { ar: "اطلب بالجملة", en: "Wholesale order", href: "order/" },
+    { ar: "اطلب", en: "Order", href: "order/", main: true },
 
     { ar: "عيّنة مجانية للكافيهات", en: "Free sample for cafés", href: "sample/" },
 
