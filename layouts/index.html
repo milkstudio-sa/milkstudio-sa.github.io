@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>milkstudio · Layout options</title>
+<link rel="icon" href="../img/logo.png">
+<script src="../theme.js?v=3"></script>
+<link rel="stylesheet" href="../theme.css?v=9">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: five phone-width frames, each one way of showing the flavours on the order form. Wraps into rows; one column on phones. */
+:root{
+  --board:#E9E7DA; --paper:#F6F4EC; --cocoa:#3A2920; --cocoa-soft:#7A5A4B; --blue:#C3CFD3; --line:#D6D1C0;
+  --f-ar:"MkDigits","IBM Plex Sans Arabic","Archivo",system-ui,sans-serif;
+  --f-mono:"MkDigits","IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--board:#1E1814;--paper:#29211C;--cocoa:#EDE6D6;--cocoa-soft:#B9A898;--blue:#3E4C52;--line:#3D332C;color-scheme:dark}}
+:root[data-theme="dark"]{--board:#1E1814;--paper:#29211C;--cocoa:#EDE6D6;--cocoa-soft:#B9A898;--blue:#3E4C52;--line:#3D332C;color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0;overflow-x:clip}
+body{background:var(--board);color:var(--cocoa);font-family:var(--f-ar);font-size:15px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:calc(20px + env(safe-area-inset-top,0px)) calc(40px + env(safe-area-inset-bottom,0px))}
+.hand{font-family:var(--f-hand);font-weight:400;font-synthesis:none}
+
+.top{max-width:1200px;margin:0 auto 24px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.top .t{display:flex;align-items:center;gap:12px;min-width:0}
+.top img.logo-l,.top img.logo-d{width:52px;height:auto}
+.top h1{margin:0;font-size:30px;line-height:1.1}
+.top p{margin:2px 0 0;color:var(--cocoa-soft);font-size:14px;max-width:52ch}
+
+/* gallery */
+.gallery{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,330px),1fr));gap:32px 24px;align-items:start}
+.opt{scroll-snap-align:start;display:flex;flex-direction:column;gap:12px;min-width:0}
+.opt header{display:flex;flex-direction:column;gap:4px}
+.opt .num{font-family:var(--f-mono);font-size:12px;letter-spacing:.06em;color:var(--cocoa-soft)}
+.opt h2{margin:0;font-size:26px;line-height:1.15}
+.opt .why{margin:0;font-size:13px;color:var(--cocoa-soft)}
+.opt .why b{color:var(--cocoa);font-weight:600}
+.phone{background:var(--board);border:1.5px solid var(--line);border-radius:28px;padding:18px 14px;min-height:420px;display:flex;flex-direction:column;gap:12px;overflow:hidden}
+.phone .h{font-size:24px;line-height:1.1;margin:0}
+
+/* shared bits */
+.qty{display:flex;align-items:center;gap:4px}
+.qty button{all:unset;cursor:pointer;width:34px;height:34px;border-radius:50%;border:1.5px solid var(--cocoa);display:grid;place-items:center;font-size:18px;line-height:1}
+.qty button:disabled{opacity:.3;cursor:default}
+.qty button:focus-visible{outline:2px solid var(--cocoa);outline-offset:2px}
+.qty b{min-width:30px;text-align:center;font-family:var(--f-hand);font-weight:400;font-size:24px;line-height:1}
+.price{font-size:13px;color:var(--cocoa-soft)}
+.desc{font-size:12.5px;color:var(--cocoa-soft);margin:0}
+.ck{object-fit:contain;filter:drop-shadow(0 3px 5px rgba(20,12,8,.25))}
+.sum{margin-top:auto;display:flex;justify-content:space-between;align-items:center;background:var(--cocoa);color:var(--board);border-radius:16px;padding:10px 16px}
+.sum b{font-family:var(--f-hand);font-weight:400;font-size:26px}
+.sum span{font-size:13px}
+
+/* 1 · stacked cards (current) */
+.o1 .card{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px 12px;background:var(--paper);border:1.5px solid var(--line);border-radius:16px;padding:12px}
+.o1 .card.has{border-color:var(--cocoa)}
+.o1 .ck{width:48px;height:48px}
+.o1 h3{margin:0;font-size:22px}
+.o1 .row{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;border-top:1px dashed var(--line);padding-top:10px}
+
+/* 2 · horizontal swipe */
+.o2 .rail{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin-inline:-14px;padding-inline:14px;padding-bottom:6px}
+.o2 .card{flex:0 0 78%;scroll-snap-align:center;background:var(--paper);border:1.5px solid var(--line);border-radius:20px;padding:16px;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}
+.o2 .card.has{border-color:var(--cocoa)}
+.o2 .ck{width:130px;height:130px}
+.o2 h3{margin:0;font-size:26px}
+.o2 .dots{display:flex;justify-content:center;gap:6px}
+.o2 .dots i{width:7px;height:7px;border-radius:50%;background:var(--line)}
+.o2 .dots i.on{background:var(--cocoa)}
+
+/* 3 · two-up grid */
+.o3 .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.o3 .card{background:var(--paper);border:1.5px solid var(--line);border-radius:16px;padding:12px 10px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}
+.o3 .card.has{border-color:var(--cocoa)}
+.o3 .ck{width:84px;height:84px}
+.o3 h3{margin:0;font-size:20px;line-height:1.1}
+.o3 .qty button{width:30px;height:30px}
+
+/* 4 · compact list */
+.o4 .list{background:var(--paper);border:1.5px solid var(--line);border-radius:16px;overflow:hidden}
+.o4 .item{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center;padding:10px 12px}
+.o4 .item+.item{border-top:1px solid var(--line)}
+.o4 .ck{width:40px;height:40px}
+.o4 h3{margin:0;font-size:19px;line-height:1.1}
+.o4 details{grid-column:2/-1}
+.o4 summary{cursor:pointer;font-size:12px;color:var(--cocoa-soft);list-style:none}
+.o4 summary::-webkit-details-marker{display:none}
+
+/* 5 · photo first */
+.o5 .card{border-radius:20px;overflow:hidden;background:var(--paper);border:1.5px solid var(--line)}
+.o5 .card.has{border-color:var(--cocoa)}
+.o5 .hero{background:var(--blue);display:flex;align-items:flex-end;justify-content:space-between;padding:12px 16px 10px;gap:8px;min-height:120px}
+.o5 .ck{width:104px;height:104px;margin-bottom:-26px}
+.o5 h3{margin:0;font-size:28px;line-height:1}
+.o5 .body{padding:16px;display:flex;flex-direction:column;gap:10px}
+.o5 .bar{display:flex;justify-content:space-between;align-items:center}
+
+.note{max-width:1200px;margin:20px auto 0;font-size:13px;color:var(--cocoa-soft)}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="t">
+    <img class="logo-l" src="../img/logo.png" alt="milkstudio"><img class="logo-d" src="../img/logo-dark.png" alt="milkstudio">
+    <div><h1 class="hand">طرق عرض النكهات</h1><p>خمس طرق لعرض النكهات في صفحة الطلب. جرّب + و − في كل وحدة. </p></div>
+  </div>
+  <button type="button" class="theme-btn" id="themeBtn" aria-label="Dark mode"><span class="ck"><img class="ck-l" src="../img/cookie-classic.webp" alt="" width="36" height="36"><img class="ck-d" src="../img/cookie-double.webp" alt="" width="36" height="36"></span><span class="theme-lbl" aria-hidden="true">الوضع الداكن</span></button>
+</div>
+
+<div class="gallery" id="gallery"></div>
+<p class="note">هذي الصفحة للتجربة فقط، ما هي مربوطة بالصفحة الرئيسية ولا تسجّل أي شي.</p>
+
+<script>
+const F = [
+  { id:"classic", img:"cookie-classic.webp", name:"كلاسيك", d:"عجينة كلاسيكية بالزبدة البنية، ومكس شوكولاتة بيلكولاد داكنة وبالحليب" },
+  { id:"double",  img:"cookie-double.webp",  name:"دبل تشوكلت", d:"عجينة كاكاو بلجيكية، مع مكس قطع تشوكلت داكنة وبالحليب" }
+];
+const PRICE = 49, PACK = "كيس 6 حبات";
+const OPTS = [
+  { k:"o1", n:"01 · عمودي", t:"بطاقات فوق بعض", why:"<b>الحالي.</b> كل شي واضح: الصورة والوصف والسعر. أطول شي في الصفحة." },
+  { k:"o2", n:"02 · أفقي", t:"سحب يمين ويسار", why:"<b>يبرز الكوكيز.</b> صورة كبيرة لكل نكهة. لكن النكهة الثانية مخفية لين يسحب." },
+  { k:"o3", n:"03 · شبكة", t:"مربعين جنب بعض", why:"<b>تشوف كل النكهات مرة وحدة.</b> مكان أقل للوصف، يناسب لو زادت النكهات." },
+  { k:"o4", n:"04 · قائمة", t:"قائمة مختصرة", why:"<b>أسرع للطلب المتكرر.</b> الوصف مخفي تحت «التفاصيل». أبسط وأقل فخامة." },
+  { k:"o5", n:"05 · الصورة أولاً", t:"صورة كبيرة فوق", why:"<b>أكثر شي يحس بالفخامة.</b> لون البراند خلف الكوكيز. ياخذ مكان أكثر." }
+];
+const qty = {}; OPTS.forEach(o=>F.forEach(f=>qty[o.k+f.id]=0));
+
+const stepper = (o,f)=>`<div class="qty"><button type="button" data-k="${o}${f.id}" data-d="-1" aria-label="−" ${qty[o+f.id]?"":"disabled"}>−</button><b>${qty[o+f.id]}</b><button type="button" data-k="${o}${f.id}" data-d="1" aria-label="+">+</button></div>`;
+const img = (f,w)=>`<img class="ck" src="../img/${f.img}" alt="" width="${w}" height="${w}">`;
+const has = (o,f)=>qty[o+f.id]?"has":"";
+const sum = o=>{const n=F.reduce((a,f)=>a+qty[o+f.id],0);return `<div class="sum"><span>${n?n+" "+(n===1?"كيس":"أكياس")+" + التوصيل":"أضف كيس"}</span><span><b>${n*PRICE}</b> ر.س</span></div>`};
+
+const R = {
+  o1:o=>F.map(f=>`<div class="card ${has(o,f)}">${img(f,48)}<div><h3 class="hand">${f.name}</h3><p class="desc">${f.d}</p></div>
+      <div class="row"><div><b style="font-size:14px">${PACK}</b><div class="price">${PRICE} ر.س</div></div>${stepper(o,f)}</div></div>`).join(""),
+  o2:o=>`<div class="rail" data-rail>${F.map(f=>`<div class="card ${has(o,f)}">${img(f,130)}<h3 class="hand">${f.name}</h3><p class="desc">${f.d}</p><div class="price">${PACK} · ${PRICE} ر.س</div>${stepper(o,f)}</div>`).join("")}</div>
+      <div class="dots">${F.map((_,i)=>`<i class="${i?"":"on"}"></i>`).join("")}</div>`,
+  o3:o=>`<div class="grid">${F.map(f=>`<div class="card ${has(o,f)}">${img(f,84)}<h3 class="hand">${f.name}</h3><div class="price">${PACK}<br>${PRICE} ر.س</div>${stepper(o,f)}</div>`).join("")}</div>`,
+  o4:o=>`<div class="list">${F.map(f=>`<div class="item">${img(f,40)}<div><h3 class="hand">${f.name}</h3><div class="price">${PACK} · ${PRICE} ر.س</div></div>${stepper(o,f)}
+      <details><summary>التفاصيل ⌄</summary><p class="desc">${f.d}</p></details></div>`).join("")}</div>`,
+  o5:o=>F.map(f=>`<div class="card ${has(o,f)}"><div class="hero"><h3 class="hand">${f.name}</h3>${img(f,104)}</div>
+      <div class="body"><p class="desc">${f.d}</p><div class="bar"><div><b style="font-size:14px">${PACK}</b><div class="price">${PRICE} ر.س</div></div>${stepper(o,f)}</div></div></div>`).join("")
+};
+
+function render(){
+  const g=document.getElementById("gallery"), keep={};
+  g.querySelectorAll("[data-rail]").forEach(r=>keep[r.closest(".opt").dataset.k]=r.scrollLeft);
+  g.innerHTML = OPTS.map(o=>`<section class="opt" data-k="${o.k}">
+    <header><span class="num">${o.n}</span><h2 class="hand">${o.t}</h2><p class="why">${o.why}</p></header>
+    <div class="phone ${o.k}"><p class="h hand">جهّز طلبك</p>${R[o.k](o.k)}${sum(o.k)}</div></section>`).join("");
+  g.querySelectorAll("[data-rail]").forEach(r=>{
+    const k=r.closest(".opt").dataset.k; if(keep[k]) r.scrollLeft=keep[k];
+    const dots=r.nextElementSibling.children;
+    r.addEventListener("scroll",()=>{const i=Math.round(Math.abs(r.scrollLeft)/(r.firstElementChild.offsetWidth+12));[...dots].forEach((d,j)=>d.classList.toggle("on",j===i))},{passive:true});
+  });
+}
+document.getElementById("gallery").addEventListener("click",e=>{
+  const b=e.target.closest("button[data-k]"); if(!b) return;
+  qty[b.dataset.k]=Math.max(0,qty[b.dataset.k]+Number(b.dataset.d)); render();
+});
+render();
+</script>
+</body>
+</html>
